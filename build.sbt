@@ -1,11 +1,13 @@
-enablePlugins(ScalaJSPlugin)
-
-name := "laminar"
-organization := "objektwerks"
-version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.8"
-libraryDependencies ++= {
-  Seq(
-    "com.raquo" %%% "laminar" % "0.6"
+lazy val root = (project in file("."))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "laminar",
+    organization := "objektwerks",
+    version := "0.1-SNAPSHOT",
+    scalaVersion := "2.12.8",
+    libraryDependencies ++= {
+      Seq(
+        "com.raquo" %%% "laminar" % "0.6"
+      )
+    }
   )
-}
