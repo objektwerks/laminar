@@ -1,6 +1,7 @@
 package laminar
 
-class odelView() {
+class ModelView() {
+  def init(): Unit = println("ModelView init!")
 }
 
 object ModelView {

@@ -1,7 +1,9 @@
 package laminar
 
-@JSExportTopLevel("Main")
-object Main {
+import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
+
+@JSExportTopLevel("Client")
+object Client {
   @JSExport
   def init(): Unit = {
     val modelView = ModelView()
