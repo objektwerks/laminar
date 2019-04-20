@@ -1,5 +1,5 @@
 Laminar
-ÑÑÑÑÑ
+-------
 >Laminar feature tests.
 
 Test
