@@ -15,8 +15,8 @@ object Counter {
     val element = div(
       cls := "w3-container",
       child <-- countSignal.map(count => span(s"$label $count  ")),
-      button(cls := "w3-button", onClick --> decrementClickBus, "-"),
-      button(cls := "w3-button", onClick --> incrementClickBus, "+")
+      button(cls := "w3-btn w3-circle", onClick --> decrementClickBus, "-"),
+      button(cls := "w3-btn w3-circle", onClick --> incrementClickBus, "+")
     )
     new Counter(countSignal, element)
   }
