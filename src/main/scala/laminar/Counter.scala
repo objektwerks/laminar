@@ -13,10 +13,10 @@ object Counter {
       .merge(incrementClickBus.events.mapTo(1), decrementClickBus.events.mapTo(-1))
       .fold(initial = 0)(_ + _)
     val element = div(
-      className := "Counter",
-      button(onClick --> decrementClickBus, "–"),
-      child <-- countSignal.map(count => span(s" :: $count ($label) :: ")),
-      button(onClick --> incrementClickBus, "+")
+      cls := "w3-container",
+      child <-- countSignal.map(count => span(s"$label $count  ")),
+      button(cls := "w3-button", onClick --> decrementClickBus, "-"),
+      button(cls := "w3-button", onClick --> incrementClickBus, "+")
     )
     new Counter(countSignal, element)
   }

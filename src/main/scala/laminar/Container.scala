@@ -5,12 +5,12 @@ import org.scalajs.dom.document
 
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
-@JSExportTopLevel("Client")
+@JSExportTopLevel("Container")
 object Container {
   @JSExport
   def init(): Unit = {
     val container = document.getElementById("container")
-    val element = Counter("counter").element
+    val element = Counter(label = "Count:").element
     render(container, element)
     ()
   }
