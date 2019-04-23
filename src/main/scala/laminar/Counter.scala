@@ -6,7 +6,7 @@ import org.scalajs.dom.MouseEvent
 class Counter private(val countSignal: Signal[Int], val element: HtmlElement)
 
 object Counter {
-  import UnsafeInnerHtmlReceiver._
+  import UnsafeInnerHtmlModifier._
 
   def apply(label: String): Counter = {
     val incrementClickBus = new EventBus[MouseEvent]
