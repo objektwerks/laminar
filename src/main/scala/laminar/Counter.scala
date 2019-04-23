@@ -6,6 +6,8 @@ import org.scalajs.dom.MouseEvent
 class Counter private(val countSignal: Signal[Int], val element: HtmlElement)
 
 object Counter {
+  import UnsafeInnerHtmlReceiver._
+
   def apply(label: String): Counter = {
     val incrementClickBus = new EventBus[MouseEvent]
     val decrementClickBus = new EventBus[MouseEvent]
@@ -15,8 +17,8 @@ object Counter {
     val element = div(
       cls := "w3-container",
       child <-- countSignal.map(count => span(s"$label $count  ")),
-      button(cls := "w3-btn w3-circle", onClick --> decrementClickBus, "-"),
-      button(cls := "w3-btn w3-circle", onClick --> incrementClickBus, "+")
+      button(cls := "w3-btn w3-circle", onClick --> decrementClickBus, span(unsafeInnerHtml := "&minus;")),
+      button(cls := "w3-btn w3-circle", onClick --> incrementClickBus, span(unsafeInnerHtml := "&plus;"))
     )
     new Counter(countSignal, element)
   }
