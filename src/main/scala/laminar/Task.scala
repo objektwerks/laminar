@@ -12,14 +12,14 @@ object Task {
   def newId:Int = id.incrementAndGet
 
   def apply(id: Int = newId, task: String, element: HtmlElement): String = {
-    val taskStream: EventStream[List[Task]] =
+    val taskStream: EventStream[List[Task]] = EventStream(List.empty[Task])
 
-    def renderTask(id: String, task: String, taskStream: EventStream[Task]): Div = {
+    def render(id: Int, task: String, taskStream: EventStream[Task]): Div = {
       div(
         p("task: ", child.text <-- taskStream.map(_.task))
       )
     }
-    val taskElements: EventStream[List[Div]] = taskStream.split(_.id)(renderTask)
-    div("Tasks: ", children <-- taskElements)
+    val element = div("Tasks: ", children <-- taskStream.split(_.id)(render(_, task, taskStream)))
+    new Task(id, task, element)
   }
 }
