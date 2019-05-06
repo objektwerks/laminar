@@ -10,8 +10,9 @@ object Container {
   @JSExport
   def init(): Unit = {
     val container = document.getElementById("container")
-    val element = Counter(label = "Count:").element
-    render(container, element)
+    val counter = Counter(label = "Count:").element
+    val itemView = ItemView(Item.items).element
+    render(container, div(counter, itemView))
     ()
   }
 }
