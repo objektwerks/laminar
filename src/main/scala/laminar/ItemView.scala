@@ -20,6 +20,7 @@ object ItemView {
 
   def renderItems(elements: EventStream[List[Div]]): Div = {
     div(
+      cls := "w3-container",
       children <-- elements
     )
   }
