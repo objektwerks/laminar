@@ -7,21 +7,21 @@ class ItemView private(val element: HtmlElement)
 object ItemView {
   def apply(items: List[Item]): ItemView = {
     val itemsStream: EventStream[List[Item]] = EventStream.fromValue(items, true)
-    val divsStream: EventStream[List[Div]] = itemsStream.map(items => items.map(renderItem))
-    val div: HtmlElement = renderItems(divsStream)
+    val lisStream: EventStream[List[Li]] = itemsStream.map(items => items.map(renderItem))
+    val div: HtmlElement = renderItems(lisStream)
     new ItemView(div)
   }
 
-  def renderItem(item: Item): Div = {
-    div(
-      p(item.value)
-    )
-  }
+  def renderItem(item: Item): Li = li(item.value)
 
-  def renderItems(elements: EventStream[List[Div]]): Div = {
+  def renderItems(elements: EventStream[List[Li]]): Div = {
     div(
       cls := "w3-container",
-      children <-- elements
+      p("Items:"),
+      ul(
+        cls := "w3-ul w3-hoverable",
+        children <-- elements
+      )
     )
   }
 }
