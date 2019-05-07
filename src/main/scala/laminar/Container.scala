@@ -11,7 +11,7 @@ object Container {
   def init(): Unit = {
     val container = document.getElementById("container")
     val counter = Counter(label = "Count:").element
-    val items = List(Item(value = "one"), Item(value = "two"), Item(value = "three"))
+    val items = List(StringItem(value = "one"), StringItem(value = "two"), StringItem(value = "three"))
     val itemView = ItemView(items, "Items:").element
     render(container, div(counter, itemView))
     ()

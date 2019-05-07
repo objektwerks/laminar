@@ -12,13 +12,13 @@ object ItemView {
     new ItemView(div)
   }
 
-  def renderItem(item: Item): Li = li(item.value)
+  def renderItem(item: Item): Li = li(item.render)
 
   def renderItems(elements: EventStream[List[Li]], header: String): Div = {
     div(
       cls := "w3-container",
       p(header),
-      ul(
+      ol(
         cls := "w3-ul w3-hoverable",
         children <-- elements
       ),
