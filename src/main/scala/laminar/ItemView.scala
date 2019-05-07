@@ -22,7 +22,10 @@ object ItemView {
         cls := "w3-ul w3-hoverable",
         children <-- elements
       ),
-      input(typ := "text")
+      div(
+        "Add Item:",
+        input(typ := "text")
+      )
     )
   }
 }
