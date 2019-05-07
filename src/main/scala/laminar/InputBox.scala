@@ -2,7 +2,7 @@ package laminar
 
 import com.raquo.laminar.api.L._
 
-class InputBox private (val element: HtmlElement, val box: Input)
+class InputBox private(val element: HtmlElement, val box: Input)
 
 object InputBox {
   def apply(label: String, typeof: String): InputBox = {

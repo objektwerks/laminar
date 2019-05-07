@@ -21,7 +21,8 @@ object ItemView {
       ul(
         cls := "w3-ul w3-hoverable",
         children <-- elements
-      )
+      ),
+      input(typ := "text")
     )
   }
 }
