@@ -17,10 +17,10 @@ object ItemView {
   def renderItem(item: Item): Li = li(
     cls := "w3-display-container",
     item.render,
-    inContext { liNode =>
+    inContext { liElement =>
       span(
         cls := "w3-button w3-display-right",
-        onClick --> { _: Any => display.none(liNode) },
+        onClick --> { _ => display.none(liElement) },
         unsafeInnerHtml := "&times;"
       )
     }
