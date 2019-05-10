@@ -9,15 +9,17 @@ object ItemView {
 
   def apply(items: List[Item]): ItemView = {
     val itemStream: EventStream[List[Item]] = EventStream.fromValue(items, true)
-    val liStream: EventStream[List[Li]] = itemStream.map(items => items.map(renderItem))
+    val liStream: EventStream[List[Li]] = itemStream.split(_.id)(renderItem)
     val element: HtmlElement = renderItems(liStream)
     new ItemView(element)
   }
 
-  def renderItem(item: Item): Li = li(
-    id := item.id,
+  def renderItem(id: String, item: Item, itemStream: EventStream[Item]): Li = li(
     cls := "w3-display-container",
-    item.value,
+    div(
+      p(id + ". ", child.text <-- itemStream.map(_.value)),
+      p("updated: ", child.text <-- itemStream.map(_ != item ).map(_.toString))
+    ),
     inContext { liElement =>
       span(
         cls := "w3-button w3-display-right",
