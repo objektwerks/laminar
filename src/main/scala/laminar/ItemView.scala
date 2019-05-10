@@ -8,10 +8,10 @@ object ItemView {
   import UnsafeInnerHtmlModifier._
 
   def apply(items: List[Item]): ItemView = {
-    val itemsStream: EventStream[List[Item]] = EventStream.fromValue(items, true)
-    val lisStream: EventStream[List[Li]] = itemsStream.map(items => items.map(renderItem))
-    val div: HtmlElement = renderItems(lisStream)
-    new ItemView(div)
+    val itemStream: EventStream[List[Item]] = EventStream.fromValue(items, true)
+    val liStream: EventStream[List[Li]] = itemStream.map(items => items.map(renderItem))
+    val element: HtmlElement = renderItems(liStream)
+    new ItemView(element)
   }
 
   def renderItem(item: Item): Li = li(
