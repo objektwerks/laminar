@@ -17,7 +17,7 @@ object ItemView {
   def renderItem(item: Item): Li = li(
     id := item.id,
     cls := "w3-display-container",
-    item.render,
+    item.value,
     inContext { liElement =>
       span(
         cls := "w3-button w3-display-right",
