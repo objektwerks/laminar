@@ -3,6 +3,8 @@ package laminar
 import java.util.concurrent.atomic.AtomicInteger
 
 sealed trait Item {
+  def id: Int
+  def idToString: String = id.toString
   def render: String
 }
 

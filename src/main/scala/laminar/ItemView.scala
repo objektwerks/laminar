@@ -15,6 +15,7 @@ object ItemView {
   }
 
   def renderItem(item: Item): Li = li(
+    id := item.idToString,
     cls := "w3-display-container",
     item.render,
     inContext { liElement =>
