@@ -44,8 +44,8 @@ object ItemView {
         cls := "w3-container",
         div(
           cls := "w3-row",
-          div(cls := "w3-col", width := "15%", label("Add:")), // TODO Add item to list!
-          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text"))
+          div(cls := "w3-col", width := "15%", label("Add:")),
+          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text")) // TODO Add item to list!
         )
       )
     )
