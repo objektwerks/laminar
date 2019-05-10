@@ -24,7 +24,7 @@ object ItemView {
       span(
         cls := "w3-button w3-display-right",
         onClick --> { _ =>
-          display.none(liElement) // TODO Remove li element!
+          display.none(liElement) // TODO Remove li element and item from items!
         },
         unsafeInnerHtml := "&times;"
       )
@@ -45,7 +45,7 @@ object ItemView {
         div(
           cls := "w3-row",
           div(cls := "w3-col", width := "15%", label("Add:")),
-          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text")) // TODO Add item to list!
+          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text")) // TODO Add item to items!
         )
       )
     )
