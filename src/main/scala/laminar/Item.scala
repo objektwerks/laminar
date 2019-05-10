@@ -2,9 +2,12 @@ package laminar
 
 import java.util.concurrent.atomic.AtomicInteger
 
+import scala.util.Try
+
 sealed trait Item {
   def id: Int
   def idToString: String = id.toString
+  def idToInt(id: String): Int = Try(id.toInt).getOrElse(-1)
   def render: String
 }
 
