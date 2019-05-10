@@ -15,13 +15,15 @@ object ItemView {
   }
 
   def renderItem(item: Item): Li = li(
-    id := item.idToString,
+    id := item.id,
     cls := "w3-display-container",
     item.render,
     inContext { liElement =>
       span(
         cls := "w3-button w3-display-right",
-        onClick --> { _ => display.none(liElement) },
+        onClick --> { _ =>
+          display.none(liElement)
+        },
         unsafeInnerHtml := "&times;"
       )
     }
