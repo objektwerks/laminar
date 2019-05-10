@@ -40,8 +40,8 @@ object ItemView {
         cls := "w3-container",
         div(
           cls := "w3-row",
-          div(cls := "w3-col", width := "10%", label("Add:")),
-          div(cls := "w3-col", width := "90%", input(cls := "w3-input", typ := "text"))
+          div(cls := "w3-col", width := "15%", label("Add:")),
+          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text"))
         )
       )
     )
