@@ -27,13 +27,13 @@ object ItemView {
     }
   )
 
-  def renderItems(elements: EventStream[List[Li]]): Div = {
+  def renderItems(liElements: EventStream[List[Li]]): Div = {
     div(
       cls := "w3-container",
       h4(cls := "w3-indigo", "Items"),
       ol(
         cls := "w3-ul w3-hoverable",
-        children <-- elements
+        children <-- liElements
       ),
       hr(),
       div(
