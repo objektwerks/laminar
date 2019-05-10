@@ -11,7 +11,7 @@ object Container {
   def init(): Unit = {
     val container = document.getElementById("container")
     val items = List(StringItem(value = "one"), StringItem(value = "two"), StringItem(value = "three"))
-    val itemView = ItemView(items, "Items:").element
+    val itemView = ItemView(items).element
     render(container, itemView)
     ()
   }

@@ -7,10 +7,10 @@ class ItemView private(val element: HtmlElement)
 object ItemView {
   import UnsafeInnerHtmlModifier._
 
-  def apply(items: List[Item], header: String): ItemView = {
+  def apply(items: List[Item]): ItemView = {
     val itemsStream: EventStream[List[Item]] = EventStream.fromValue(items, true)
     val lisStream: EventStream[List[Li]] = itemsStream.map(items => items.map(renderItem))
-    val div: HtmlElement = renderItems(lisStream, header)
+    val div: HtmlElement = renderItems(lisStream)
     new ItemView(div)
   }
 
@@ -27,17 +27,22 @@ object ItemView {
     }
   )
 
-  def renderItems(elements: EventStream[List[Li]], header: String): Div = {
+  def renderItems(elements: EventStream[List[Li]]): Div = {
     div(
       cls := "w3-container",
-      p(header),
+      h4(cls := "w3-indigo", "Items"),
       ol(
         cls := "w3-ul w3-hoverable",
         children <-- elements
       ),
+      hr(),
       div(
-        "Add Item:",
-        input(typ := "text")
+        cls := "w3-container",
+        div(
+          cls := "w3-row",
+          div(cls := "w3-col", width := "10%", label("Add:")),
+          div(cls := "w3-col", width := "90%", input(cls := "w3-input", typ := "text"))
+        )
       )
     )
   }
