@@ -31,7 +31,7 @@ object ItemView {
     div(
       cls := "w3-container",
       h4(cls := "w3-indigo", "Items"),
-      ol(
+      ul(
         cls := "w3-ul w3-hoverable",
         children <-- liElements
       ),

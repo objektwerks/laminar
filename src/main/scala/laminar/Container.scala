@@ -10,7 +10,7 @@ object Container {
   @JSExport
   def init(): Unit = {
     val container = document.getElementById("container")
-    val items = List(StringItem(value = "one"), StringItem(value = "two"), StringItem(value = "three"))
+    val items = List(StringItem(value = "wash car"), StringItem(value = "mow yard"), StringItem(value = "clean pool"))
     val itemView = ItemView(items).element
     render(container, itemView)
     ()
