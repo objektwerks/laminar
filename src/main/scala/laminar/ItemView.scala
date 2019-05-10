@@ -18,7 +18,7 @@ object ItemView {
     cls := "w3-display-container",
     div(
       p(id + ". ", child.text <-- itemStream.map(_.value)),
-      p("updated: ", child.text <-- itemStream.map(_ != item ).map(_.toString))
+      p("edited: ", child.text <-- itemStream.map(_ != item ).map(_.toString))
     ),
     inContext { liElement =>
       span(
