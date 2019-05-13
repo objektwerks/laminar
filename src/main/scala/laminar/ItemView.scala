@@ -54,6 +54,7 @@ object ItemView {
           div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text", inContext { itemInput =>
             onEnterPress.mapTo(itemInput.ref.value).filter(_.nonEmpty) --> { _ =>
               itemsVar.update(_ :+ Item(value = itemInput.ref.value))
+              itemInput.ref.value = ""
             }
           }))
         )
