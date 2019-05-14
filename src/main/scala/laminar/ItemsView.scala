@@ -28,8 +28,8 @@ class ItemsView private (itemsVar: Var[List[Item]]) {
       span(
         cls := "w3-button w3-display-right",
         onClick --> { _ =>
-          display.none(liElement)
           itemsVar.update(_.filterNot(_.id == liElement.ref.id))
+          display.none(liElement)
           log("removed item", itemsVar.toString)
         },
         unsafeInnerHtml := "&times;"
