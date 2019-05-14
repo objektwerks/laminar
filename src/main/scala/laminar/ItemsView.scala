@@ -2,6 +2,7 @@ package laminar
 
 import com.raquo.laminar.api.L._
 import org.scalajs.dom.ext.KeyCode
+import org.scalajs.dom.console._
 
 object ItemsView {
   def apply(itemsVar: Var[List[Item]]): ItemsView = new ItemsView(itemsVar)
@@ -29,6 +30,7 @@ class ItemsView private (itemsVar: Var[List[Item]]) {
         onClick --> { _ =>
           display.none(liElement)
           itemsVar.update(_.filterNot(_.id == liElement.ref.id))
+          log("removed item", itemsVar.toString)
         },
         unsafeInnerHtml := "&times;"
       )
@@ -53,6 +55,7 @@ class ItemsView private (itemsVar: Var[List[Item]]) {
             onEnterPress.mapTo(itemInput.ref.value).filter(_.nonEmpty) --> { _ =>
               itemsVar.update(_ :+ Item(value = itemInput.ref.value))
               itemInput.ref.value = ""
+              log("added item", itemsVar.toString)
             }
           }))
         )
