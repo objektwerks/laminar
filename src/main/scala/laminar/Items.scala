@@ -5,19 +5,19 @@ import laminar.UnsafeInnerHtmlModifier._
 import org.scalajs.dom.console._
 import org.scalajs.dom.ext.KeyCode
 
-object ItemsView {
-  def apply(itemsVar: Var[List[Item]]): ItemsView = new ItemsView(itemsVar)
+object Items {
+  def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
 }
 
-class ItemsView private(itemsVar: Var[List[Item]]) {
+class Items private(itemsVar: Var[List[Item]]) {
   private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
-  private val element = render(addItemElement, itemsElement)
+  private val rootElement = render(addItemElement, itemsElement)
   log("items", itemsVar.now.toString)
 
-  def htmlElement: HtmlElement = element
+  def element: HtmlElement = rootElement
 
   private def render(addItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),

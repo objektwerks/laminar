@@ -12,8 +12,8 @@ object App {
     val app = document.getElementById("app")
     val items = List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool"))
     val itemsVar = Var(items)
-    val itemView = ItemsView(itemsVar).htmlElement
-    render(app, itemView)
+    val itemsElement = Items(itemsVar).element
+    render(app, itemsElement)
     ()
   }
 }
