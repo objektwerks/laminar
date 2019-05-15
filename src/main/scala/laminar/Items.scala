@@ -25,13 +25,13 @@ class Items private(itemsVar: Var[List[Item]]) {
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
-  private val rootElement = render(addItemElement, itemsElement)
+  private val rootElement = renderRoot(addItemElement, itemsElement)
 
   log("items", itemsVar.now.toString)
 
-  def element: HtmlElement = rootElement
+  def render: HtmlElement = rootElement
 
-  private def render(addItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
+  private def renderRoot(addItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
       div(cls("w3-container"),
         header(cls("w3-container w3-indigo"), h4("Item")),

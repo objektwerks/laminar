@@ -12,7 +12,7 @@ object App {
     val app = document.getElementById("app")
     val items = List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool"))
     val itemsVar = Var(items)
-    val itemsElement = Items(itemsVar).element
+    val itemsElement = Items(itemsVar).render
     render(app, itemsElement)
     ()
   }
