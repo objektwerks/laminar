@@ -1,19 +1,19 @@
 package laminar
 
 import com.raquo.laminar.api.L._
-import org.scalajs.dom.ext.KeyCode
+import laminar.UnsafeInnerHtmlModifier._
 import org.scalajs.dom.console._
+import org.scalajs.dom.ext.KeyCode
 
 object ItemsView {
   def apply(itemsVar: Var[List[Item]]): ItemsView = new ItemsView(itemsVar)
 }
 
-class ItemsView private (itemsVar: Var[List[Item]]) {
-  import UnsafeInnerHtmlModifier._
-
+class ItemsView private(itemsVar: Var[List[Item]]) {
   private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
   private val liSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val element: HtmlElement = renderItems(liSignal)
+  log("items", itemsVar.now.toString)
 
   def htmlElement: HtmlElement = element
 
@@ -30,7 +30,7 @@ class ItemsView private (itemsVar: Var[List[Item]]) {
         onClick --> { _ =>
           itemsVar.update(_.filterNot(_.id == liElement.ref.id))
           display.none(liElement)
-          log("removed item", itemsVar.toString)
+          log("removed item", itemsVar.now.toString)
         },
         unsafeInnerHtml := "&times;"
       )
@@ -51,13 +51,15 @@ class ItemsView private (itemsVar: Var[List[Item]]) {
         div(
           cls := "w3-row",
           div(cls := "w3-col", width := "15%", label("Add:")),
-          div(cls := "w3-col", width := "85%", input(cls := "w3-input", typ := "text", inContext { itemInput =>
-            onEnterPress.mapTo(itemInput.ref.value).filter(_.nonEmpty) --> { _ =>
-              itemsVar.update(_ :+ Item(value = itemInput.ref.value))
-              itemInput.ref.value = ""
-              log("added item", itemsVar.toString)
+          div(cls := "w3-col", width := "85%", input(cls := "w3-input w3-hover-light-gray", typ := "text",
+            inContext { itemInput =>
+              onEnterPress.mapTo(itemInput.ref.value).filter(_.nonEmpty) --> { _ =>
+                itemsVar.update(_ :+ Item(value = itemInput.ref.value))
+                itemInput.ref.value = ""
+                log("added item", itemsVar.now.toString)
+              }
             }
-          }))
+          ))
         )
       )
     )
