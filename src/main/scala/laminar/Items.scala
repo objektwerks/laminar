@@ -1,20 +1,32 @@
 package laminar
 
+import java.util.concurrent.atomic.AtomicInteger
+
 import com.raquo.laminar.api.L._
-import laminar.UnsafeInnerHtmlModifier._
 import org.scalajs.dom.console._
 import org.scalajs.dom.ext.KeyCode
+
+case class Item(id: String = Item.newId, value: String)
+
+object Item {
+  private val autoinc = new AtomicInteger()
+
+  def newId: String = autoinc.incrementAndGet.toString
+}
 
 object Items {
   def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
+  import UnsafeInnerHtmlModifier._
+
   private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
   private val rootElement = render(addItemElement, itemsElement)
+
   log("items", itemsVar.now.toString)
 
   def element: HtmlElement = rootElement
