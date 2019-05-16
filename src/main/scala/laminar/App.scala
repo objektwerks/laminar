@@ -10,10 +10,9 @@ object App {
   @JSExport
   def init(): Unit = {
     val app = document.getElementById("app")
-    val items = List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool"))
-    val itemsVar = Var(items)
-    val itemsElement = Items(itemsVar).render
-    render(app, itemsElement)
+    val itemsVar = Var(List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool")))
+    val items = Items(itemsVar).render
+    render(app, items)
     ()
   }
 }
