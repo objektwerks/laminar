@@ -16,13 +16,14 @@ object Item {
 
 object Items {
   def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
+  val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
   import UnsafeInnerHtmlModifier._
+  import Items.onEnterPress
 
   private val itemEventBus = new EventBus[Item]()
-  private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
   private val updateItemElement: HtmlElement = renderUpdateItem
@@ -62,7 +63,7 @@ class Items private(itemsVar: Var[List[Item]]) {
       },
       inContext { li =>
         onClick --> { _ =>
-          log("selected item", itemsVar.now.find(_.id == li.ref.id).getOrElse(Item.emptyItem).toString)
+          log("selected item", itemsVar.now.find(_.id == li.ref.id).toString)
           itemEventBus.writer.onNext(itemsVar.now.find(_.id == li.ref.id).getOrElse(Item.emptyItem))
         }
       }
@@ -101,7 +102,7 @@ class Items private(itemsVar: Var[List[Item]]) {
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
                 input.ref.value = ""
-                log("updated item", itemsVar.now.toString)
+                log("updated item", itemsVar.now.find(_.id == input.ref.id).toString)
               }
             }
           )
