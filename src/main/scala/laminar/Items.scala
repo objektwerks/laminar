@@ -95,10 +95,11 @@ class Items private(itemsVar: Var[List[Item]]) {
         div(cls("w3-col"), width("15%"), label("Update:")),
         div(cls("w3-col"), width("85%"),
           input(cls("w3-input w3-hover-light-gray"), typ("text"),
-            child.text <-- itemEventBus.events.map(_.value),
+            id <-- itemEventBus.events.map(_.id),
+            value <-- itemEventBus.events.map(_.value),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                itemsVar.update(_.map(item => item.copy(value = input.ref.value)))
+                itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
                 input.ref.value = ""
                 log("updated item", itemsVar.now.toString)
               }
