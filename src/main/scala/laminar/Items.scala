@@ -6,12 +6,11 @@ import com.raquo.laminar.api.L._
 import org.scalajs.dom.console._
 import org.scalajs.dom.ext.KeyCode
 
-case class Item(id: String = Item.newId, value: String)
+case class Item(id: String = Item.newId(), value: String)
 
 object Item {
   private val autoinc = new AtomicInteger()
-
-  def newId: String = autoinc.incrementAndGet.toString
+  val newId = () => autoinc.incrementAndGet.toString
 }
 
 object Items {
