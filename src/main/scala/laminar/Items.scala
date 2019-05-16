@@ -101,8 +101,9 @@ class Items private(itemsVar: Var[List[Item]]) {
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
-                input.ref.value = ""
                 log("updated item", itemsVar.now.find(_.id == input.ref.id).toString)
+                input.ref.id = ""
+                input.ref.value = ""
               }
             }
           )
