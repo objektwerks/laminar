@@ -11,7 +11,7 @@ case class Item(id: String = Item.newId(), value: String)
 object Item {
   private val autoinc = new AtomicInteger()
   val newId = () => autoinc.incrementAndGet.toString
-  val emptyItem = Item("", "")
+  val empty = Item("", "")
 }
 
 object Items {
@@ -20,7 +20,7 @@ object Items {
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
-  import UnsafeInnerHtmlModifier._
+  import InnerHtmlModifier._
   import Items.onEnterPress
 
   private val itemEventBus = new EventBus[Item]()
@@ -64,7 +64,7 @@ class Items private(itemsVar: Var[List[Item]]) {
       inContext { li =>
         onClick --> { _ =>
           log("selected item", itemsVar.now.find(_.id == li.ref.id).toString)
-          itemEventBus.writer.onNext(itemsVar.now.find(_.id == li.ref.id).getOrElse(Item.emptyItem))
+          itemEventBus.writer.onNext(itemsVar.now.find(_.id == li.ref.id).getOrElse(Item.empty))
         }
       }
     )

@@ -2,8 +2,8 @@ package laminar
 
 import com.raquo.laminar.api.L._
 
-object UnsafeInnerHtmlModifier {
-  val unsafeInnerHtml: UnsafeInnerHtmlModifier.type = UnsafeInnerHtmlModifier
+object InnerHtmlModifier {
+  val unsafeInnerHtml: InnerHtmlModifier.type = InnerHtmlModifier
 
   def :=[El <: Element](innerHtml: String): Modifier[El] = {
     new Modifier[El] {
