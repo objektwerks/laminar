@@ -16,10 +16,12 @@ object Item {
 
 object Items {
   def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
+
   val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
+
   import InnerHtmlModifier._
   import Items.onEnterPress
 
@@ -78,15 +80,17 @@ class Items private(itemsVar: Var[List[Item]]) {
     div(cls("w3-container"), paddingTop("10px"), paddingBottom("10px"),
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label("Add:")),
-        div(cls("w3-col"), width("85%"), input(cls("w3-input w3-hover-light-gray"), typ("text"),
-          inContext { input =>
-            onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-              itemsVar.update(_ :+ Item(value = input.ref.value))
-              input.ref.value = ""
-              log("added item", itemsVar.now.toString)
+        div(cls("w3-col"), width("85%"),
+          input(cls("w3-input w3-hover-light-gray"), typ("text"),
+            inContext { input =>
+              onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
+                itemsVar.update(_ :+ Item(value = input.ref.value))
+                input.ref.value = ""
+                log("added item", itemsVar.now.toString)
+              }
             }
-          }
-        ))
+          )
+        )
       )
     )
 
@@ -95,7 +99,7 @@ class Items private(itemsVar: Var[List[Item]]) {
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label("Update:")),
         div(cls("w3-col"), width("85%"),
-          input(cls("w3-input w3-hover-light-gray"), typ("text"),
+          input(cls("w3-input w3-hover-light-gray"), typ("text"), readOnly(true),
             id <-- itemEventBus.events.map(_.id),
             value <-- itemEventBus.events.map(_.value),
             inContext { input =>
@@ -104,6 +108,19 @@ class Items private(itemsVar: Var[List[Item]]) {
                 log("updated item", itemsVar.now.find(_.id == input.ref.id).toString)
                 input.ref.id = ""
                 input.ref.value = ""
+              }
+            },
+            inContext { input =>
+              onSelect --> { _ =>
+                log("onSelect event fired", s"${input.ref.id} : ${input.ref.value}")
+                if (input.ref.id.isEmpty) {
+                  log("id is empty")
+                  readOnly(true)
+                } else {
+                  log("id is not empty")
+                  readOnly(false)
+                }
+                ()
               }
             }
           )
