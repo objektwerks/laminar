@@ -108,7 +108,7 @@ class Items private(itemsVar: Var[List[Item]]) {
                 log("edited item", itemsVar.now.find(_.id == input.ref.id).toString)
                 input.ref.id = ""
                 input.ref.value = ""
-                input.ref.setAttribute("readonly", "true")
+                readOnly(true)(input)
               }
             }
           )
