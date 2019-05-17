@@ -39,13 +39,13 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
       div(
-        header(cls("w3-indigo"), h4("Item")),
-        section(addItemElement),
-        section(updateItemElement)
+        div(cls("w3-indigo"), h4("Item")),
+        div(addItemElement),
+        div(updateItemElement)
       ),
       div(
-        header(cls("w3-indigo"), h4("Items")),
-        section(itemsElement)
+        div(cls("w3-indigo"), h4("Items")),
+        div(itemsElement)
       )
     )
 
