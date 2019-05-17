@@ -28,9 +28,9 @@ class Items private(itemsVar: Var[List[Item]]) {
   private val itemEventBus = new EventBus[Item]()
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
-  private val updateItemElement: HtmlElement = renderUpdateItem
+  private val editItemElement: HtmlElement = renderEditItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
-  private val rootElement = renderRoot(addItemElement, updateItemElement, itemsElement)
+  private val rootElement = renderRoot(addItemElement, editItemElement, itemsElement)
 
   log("items", itemsVar.now.toString)
 
@@ -38,21 +38,20 @@ class Items private(itemsVar: Var[List[Item]]) {
 
   private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
-      div(cls("w3-container"),
-        header(cls("w3-container w3-indigo"), h4("Item")),
-        section(cls("w3-container"), addItemElement),
-        section(cls("w3-container"), updateItemElement)
+      div(
+        header(cls("w3-indigo"), h4("Item")),
+        section(addItemElement),
+        section(updateItemElement)
       ),
-      div(cls("w3-container"),
-        header(cls("w3-container w3-indigo"), h4("Items")),
-        section(cls("w3-container"), itemsElement)
+      div(
+        header(cls("w3-indigo"), h4("Items")),
+        section(itemsElement)
       )
     )
 
   private def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
     li(id(itemId), cls("w3-display-container"),
-      item.id + ". ",
-      child.text <-- itemSignal.map(_.value),
+      child.text <-- itemSignal.map(item.id + ". " + _.value),
       inContext { li =>
         span(cls("w3-button w3-display-right"),
           onClick --> { _ =>
@@ -94,10 +93,10 @@ class Items private(itemsVar: Var[List[Item]]) {
       )
     )
 
-  private def renderUpdateItem: HtmlElement =
+  private def renderEditItem: HtmlElement =
     div(cls("w3-container"), paddingTop("10px"), paddingBottom("10px"),
       div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label("Update:")),
+        div(cls("w3-col"), width("15%"), label("Edit:")),
         div(cls("w3-col"), width("85%"),
           input(cls("w3-input w3-hover-light-gray"), typ("text"), readOnly(true),
             id <-- itemEventBus.events.map(_.id),
@@ -106,7 +105,7 @@ class Items private(itemsVar: Var[List[Item]]) {
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
-                log("updated item", itemsVar.now.find(_.id == input.ref.id).toString)
+                log("edited item", itemsVar.now.find(_.id == input.ref.id).toString)
                 input.ref.id = ""
                 input.ref.value = ""
                 input.ref.setAttribute("readonly", "true")
