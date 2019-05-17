@@ -102,25 +102,14 @@ class Items private(itemsVar: Var[List[Item]]) {
           input(cls("w3-input w3-hover-light-gray"), typ("text"), readOnly(true),
             id <-- itemEventBus.events.map(_.id),
             value <-- itemEventBus.events.map(_.value),
+            readOnly <-- itemEventBus.events.map(_.id.isEmpty),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
                 log("updated item", itemsVar.now.find(_.id == input.ref.id).toString)
                 input.ref.id = ""
                 input.ref.value = ""
-              }
-            },
-            inContext { input =>
-              onSelect --> { _ =>
-                log("onSelect event fired", s"${input.ref.id} : ${input.ref.value}")
-                if (input.ref.id.isEmpty) {
-                  log("id is empty")
-                  readOnly(true)
-                } else {
-                  log("id is not empty")
-                  readOnly(false)
-                }
-                ()
+                input.ref.setAttribute("readonly", "true")
               }
             }
           )
