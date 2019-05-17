@@ -76,7 +76,7 @@ class Items private(itemsVar: Var[List[Item]]) {
     )
 
   private def renderAddItem: HtmlElement =
-    div(cls("w3-container"), paddingTop("10px"), paddingBottom("10px"),
+    div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label("Add:")),
         div(cls("w3-col"), width("85%"),
@@ -94,7 +94,7 @@ class Items private(itemsVar: Var[List[Item]]) {
     )
 
   private def renderEditItem: HtmlElement =
-    div(cls("w3-container"), paddingTop("10px"), paddingBottom("10px"),
+    div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label("Edit:")),
         div(cls("w3-col"), width("85%"),
