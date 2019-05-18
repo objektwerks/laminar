@@ -38,12 +38,12 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
       div(
-        div(cls("w3-indigo"), h4("Item")),
+        div(cls("w3-light-grey"), h4("Item")),
         div(addItemElement),
         div(updateItemElement)
       ),
       div(
-        div(cls("w3-indigo"), h4("Items")),
+        div(cls("w3-light-grey"), h4("Items")),
         div(itemsElement)
       )
     )
@@ -78,7 +78,7 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderAddItem: HtmlElement =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label("Add:")),
+        div(cls("w3-col"), width("15%"), label(cls("w3-left-align)"), "Add:")),
         div(cls("w3-col"), width("85%"),
           input(cls("w3-input w3-hover-light-gray"), typ("text"),
             inContext { input =>
@@ -96,7 +96,7 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderEditItem: HtmlElement =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label("Edit:")),
+        div(cls("w3-col"), width("15%"), label(cls("w3-left-align)"), "Edit:")),
         div(cls("w3-col"), width("85%"),
           input(cls("w3-input w3-hover-light-gray"), typ("text"),
             id <-- itemEventBus.events.map(_.id),
