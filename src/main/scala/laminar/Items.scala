@@ -38,22 +38,22 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
       div(
-        div(cls("w3-light-grey"), h4("Item")),
+        div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Item")),
         div(addItemElement),
         div(updateItemElement)
       ),
       div(
-        div(cls("w3-light-grey"), h4("Items")),
+        div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Items")),
         div(itemsElement)
       )
     )
 
   private def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
-    li(id(itemId), cls("w3-display-container"),
+    li(id(itemId), cls("w3-text-indigo w3-display-container"),
       child.text <-- itemSignal.map(item.id + ". " + _.value),
       inContext { li =>
         log("rendered item", item.toString)
-        span(cls("w3-button w3-display-right"),
+        span(cls("w3-button w3-display-right w3-text-indigo"),
           onClick --> { _ =>
             itemsVar.update(_.filterNot(_.id == li.ref.id))
             display.none(li)
@@ -78,9 +78,9 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderAddItem: HtmlElement =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label(cls("w3-left-align)"), "Add:")),
+        div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
         div(cls("w3-col"), width("85%"),
-          input(cls("w3-input w3-hover-light-gray"), typ("text"),
+          input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_ :+ Item(value = input.ref.value))
@@ -96,12 +96,12 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderEditItem: HtmlElement =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label(cls("w3-left-align)"), "Edit:")),
+        div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
         div(cls("w3-col"), width("85%"),
-          input(cls("w3-input w3-hover-light-gray"), typ("text"),
+          input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
             id <-- itemEventBus.events.map(_.id),
             value <-- itemEventBus.events.map(_.value),
-            readOnly <-- itemEventBus.events.map(_.id.isEmpty).toSignal(initial = true),
+            readOnly <-- itemEventBus.events.map(_.id.isEmpty),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                 itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
