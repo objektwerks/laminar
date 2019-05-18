@@ -15,9 +15,9 @@ object Item {
 }
 
 object Items {
-  def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
-
   val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
+
+  def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
