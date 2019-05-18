@@ -24,14 +24,14 @@ class Items private(itemsVar: Var[List[Item]]) {
   import InnerHtmlModifier._
   import Items.onEnterPress
 
+  log("items", itemsVar.now.toString)
+
   private val itemEventBus = new EventBus[Item]()
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
   private val addItemElement: HtmlElement = renderAddItem
   private val editItemElement: HtmlElement = renderEditItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
   private val rootElement = renderRoot(addItemElement, editItemElement, itemsElement)
-
-  log("items", itemsVar.now.toString)
 
   def render: HtmlElement = rootElement
 
