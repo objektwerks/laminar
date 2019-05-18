@@ -21,7 +21,6 @@ object Items {
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
-
   import InnerHtmlModifier._
   import Items.onEnterPress
 
