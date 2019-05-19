@@ -15,27 +15,27 @@ object Item {
 }
 
 object Items {
-  val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
+  private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
   def apply(itemsVar: Var[List[Item]]): HtmlElement = new Items(itemsVar).rootElement
 
-  def onSelectItem(itemsVar: Var[List[Item]], id: String): Item = {
+  private def onSelectItem(itemsVar: Var[List[Item]], id: String): Item = {
     val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
     log("selected item", item.toString)
     item
   }
 
-  def onAddItem(itemsVar: Var[List[Item]], value: String): Unit = {
+  private def onAddItem(itemsVar: Var[List[Item]], value: String): Unit = {
     itemsVar.update(_ :+ Item(value = value))
     log("added item", itemsVar.now.toString)
   }
 
-  def onEditItem(itemsVar: Var[List[Item]], id: String, value: String): Unit = {
+  private def onEditItem(itemsVar: Var[List[Item]], id: String, value: String): Unit = {
     itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
     log("edited item", onSelectItem(itemsVar, id).toString)
   }
 
-  def onRemoveItem(itemsVar: Var[List[Item]], id: String): Unit = {
+  private def onRemoveItem(itemsVar: Var[List[Item]], id: String): Unit = {
     itemsVar.update(_.filterNot(_.id == id))
     log("removed item", itemsVar.now.toString)
   }
