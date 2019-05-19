@@ -56,12 +56,12 @@ class Items private(itemsVar: Var[List[Item]]) {
     div(cls("w3-container"),
       div(
         div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Item")),
-        div(renderAddItem),
-        div(renderEditItem)
+        renderAddItem,
+        renderEditItem
       ),
       div(
         div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Items")),
-        div(renderItems(itemsSignal))
+        renderItems(itemsSignal)
       )
     )
 
@@ -87,7 +87,7 @@ class Items private(itemsVar: Var[List[Item]]) {
       ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
     )
 
-  private def renderAddItem: HtmlElement =
+  private def renderAddItem: Div =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
@@ -104,7 +104,7 @@ class Items private(itemsVar: Var[List[Item]]) {
       )
     )
 
-  private def renderEditItem: HtmlElement =
+  private def renderEditItem: Div =
     div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
       div(cls("w3-row"),
         div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
