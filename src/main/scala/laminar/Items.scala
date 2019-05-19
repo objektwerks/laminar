@@ -72,7 +72,6 @@ class Items private(itemsVar: Var[List[Item]]) {
     li(id(itemId), cls("w3-text-indigo w3-display-container"),
       child.text <-- itemSignal.map(item.id + ". " + _.value),
       inContext { li =>
-        log("rendered item", item.toString)
         span(cls("w3-button w3-display-right w3-text-indigo"),
           onClick --> { _ =>
             onRemoveItem(itemsVar, li.ref.id)
