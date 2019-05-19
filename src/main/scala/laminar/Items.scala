@@ -17,7 +17,7 @@ object Item {
 object Items {
   val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-  def apply(itemsVar: Var[List[Item]]): Items = new Items(itemsVar)
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = new Items(itemsVar).rootElement
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
@@ -31,9 +31,7 @@ class Items private(itemsVar: Var[List[Item]]) {
   private val addItemElement: HtmlElement = renderAddItem
   private val editItemElement: HtmlElement = renderEditItem
   private val itemsElement: HtmlElement = renderItems(itemsSignal)
-  private val rootElement = renderRoot(addItemElement, editItemElement, itemsElement)
-
-  def render: HtmlElement = rootElement
+  private val rootElement: HtmlElement = renderRoot(addItemElement, editItemElement, itemsElement)
 
   private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
     div(cls("w3-container"),
