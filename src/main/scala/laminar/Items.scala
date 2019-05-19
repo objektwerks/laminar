@@ -49,22 +49,19 @@ class Items private(itemsVar: Var[List[Item]]) {
   import Items._
 
   private val itemEventBus = new EventBus[Item]()
-  private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
-  private val addItemElement: HtmlElement = renderAddItem
-  private val editItemElement: HtmlElement = renderEditItem
-  private val itemsElement: HtmlElement = renderItems(itemsSignal)
-  private val rootElement: HtmlElement = renderRoot(addItemElement, editItemElement, itemsElement)
+  private val itemsSignal = itemsVar.signal.split(_.id)(renderItem)
+  private val rootElement = renderRoot(itemsSignal)
 
-  private def renderRoot(addItemElement: HtmlElement, updateItemElement: HtmlElement, itemsElement: HtmlElement): HtmlElement =
+  private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
     div(cls("w3-container"),
       div(
         div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Item")),
-        div(addItemElement),
-        div(updateItemElement)
+        div(renderAddItem),
+        div(renderEditItem)
       ),
       div(
         div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Items")),
-        div(itemsElement)
+        div(renderItems(itemsSignal))
       )
     )
 
