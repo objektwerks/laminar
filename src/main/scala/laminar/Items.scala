@@ -18,11 +18,32 @@ object Items {
   val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
   def apply(itemsVar: Var[List[Item]]): HtmlElement = new Items(itemsVar).rootElement
+
+  def onSelectItem(itemsVar: Var[List[Item]], id: String): Item = {
+    val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
+    log("selected item", item.toString)
+    item
+  }
+
+  def onAddItem(itemsVar: Var[List[Item]], value: String): Unit = {
+    itemsVar.update(_ :+ Item(value = value))
+    log("added item", itemsVar.now.toString)
+  }
+
+  def onEditItem(itemsVar: Var[List[Item]], id: String, value: String): Unit = {
+    itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
+    log("edited item", onSelectItem(itemsVar, id).toString)
+  }
+
+  def onRemoveItem(itemsVar: Var[List[Item]], id: String): Unit = {
+    itemsVar.update(_.filterNot(_.id == id))
+    log("removed item", itemsVar.now.toString)
+  }
 }
 
 class Items private(itemsVar: Var[List[Item]]) {
   import InnerHtmlModifier._
-  import Items.onEnterPress
+  import Items._
 
   log("items", itemsVar.now.toString)
 
@@ -53,18 +74,14 @@ class Items private(itemsVar: Var[List[Item]]) {
         log("rendered item", item.toString)
         span(cls("w3-button w3-display-right w3-text-indigo"),
           onClick --> { _ =>
-            itemsVar.update(_.filterNot(_.id == li.ref.id))
+            onRemoveItem(itemsVar, li.ref.id)
             display.none(li)
-            log("removed item", itemsVar.now.toString)
           },
           unsafeInnerHtml := "&times;"
         )
       },
       inContext { li =>
-        onClick --> { _ =>
-          log("selected item", itemsVar.now.find(_.id == li.ref.id).toString)
-          itemEventBus.writer.onNext(itemsVar.now.find(_.id == li.ref.id).getOrElse(Item.empty))
-        }
+        onClick --> { _ => itemEventBus.writer.onNext(onSelectItem(itemsVar, li.ref.id)) }
       }
     )
 
@@ -81,9 +98,8 @@ class Items private(itemsVar: Var[List[Item]]) {
           input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                itemsVar.update(_ :+ Item(value = input.ref.value))
+                onAddItem(itemsVar, input.ref.value)
                 input.ref.value = ""
-                log("added item", itemsVar.now.toString)
               }
             }
           )
@@ -102,8 +118,7 @@ class Items private(itemsVar: Var[List[Item]]) {
             readOnly <-- itemEventBus.events.map(_.id.isEmpty),
             inContext { input =>
               onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                itemsVar.update(_.map(item => if (item.id == input.ref.id) item.copy(value = input.ref.value) else item))
-                log("edited item", itemsVar.now.find(_.id == input.ref.id).toString)
+                onEditItem(itemsVar, input.ref.id, input.ref.value)
                 input.ref.id = ""
                 input.ref.value = ""
                 readOnly(true)(input)
