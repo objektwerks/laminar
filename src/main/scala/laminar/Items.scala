@@ -55,12 +55,12 @@ class Items private(itemsVar: Var[List[Item]]) {
   private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
     div(cls("w3-container"),
       div(
-        div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Item")),
+        h4(cls("w3-light-grey w3-text-indigo"), "Item"),
         renderAddItem,
         renderEditItem
       ),
       div(
-        div(cls("w3-light-grey"), h4(cls("w3-text-indigo"), "Items")),
+        h4(cls("w3-light-grey w3-text-indigo"), "Items"),
         renderItems(itemsSignal)
       )
     )
