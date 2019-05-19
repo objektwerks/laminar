@@ -17,7 +17,10 @@ object Item {
 object Items {
   private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = new Items(itemsVar).rootElement
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = {
+    log("items", itemsVar.now.toString)
+    new Items(itemsVar).rootElement
+  }
 
   private def onSelectItem(itemsVar: Var[List[Item]], id: String): Item = {
     val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
@@ -44,8 +47,6 @@ object Items {
 class Items private(itemsVar: Var[List[Item]]) {
   import InnerHtmlModifier._
   import Items._
-
-  log("items", itemsVar.now.toString)
 
   private val itemEventBus = new EventBus[Item]()
   private val itemsSignal: Signal[List[Li]] = itemsVar.signal.split(_.id)(renderItem)
