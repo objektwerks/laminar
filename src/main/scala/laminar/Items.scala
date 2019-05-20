@@ -53,7 +53,7 @@ object Items {
     import InnerHtmlModifier._
 
     private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
-    private val itemEventBus = new EventBus[Item]()
+    private val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def render: HtmlElement = renderRoot(itemsModel.model.signal.split(_.id)(renderItem))
 
@@ -83,7 +83,7 @@ object Items {
           )
         },
         inContext { li =>
-          onClick --> { _ => itemEventBus.writer.onNext(itemsModel.onSelectItem(li.ref.id)) }
+          onClick --> { _ => selectedItemVar.set(Some(itemsModel.onSelectItem(li.ref.id))) }
         }
       )
 
@@ -115,15 +115,15 @@ object Items {
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              id <-- itemEventBus.events.map(_.id),
-              value <-- itemEventBus.events.map(_.value),
-              readOnly <-- itemEventBus.events.map(_.id.isEmpty),
+              id <-- selectedItemVar.signal.map(_.getOrElse(Item.empty).id),
+              value <-- selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
+              readOnly <-- selectedItemVar.signal.map(_.isEmpty),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                   itemsModel.onEditItem(input.ref.id, input.ref.value)
                   input.ref.id = ""
                   input.ref.value = ""
-                  readOnly(true)(input)
+                  selectedItemVar.set(None)
                 }
               }
             )
