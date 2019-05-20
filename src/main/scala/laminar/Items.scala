@@ -19,10 +19,12 @@ object Items {
     itemsView.render
   }
 
-  private class ItemsModel(val itemsVar: Var[List[Item]]) {
+  private class ItemsModel(itemsVar: Var[List[Item]]) {
     import org.scalajs.dom.console._
 
     log("items", itemsVar.now.toString)
+
+    def model: Var[List[Item]] = itemsVar
 
     def onSelectItem(id: String): Item = {
       val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
@@ -46,14 +48,14 @@ object Items {
     }
   }
 
-  private class ItemsView (val itemsModel: ItemsModel) {
+  private class ItemsView (itemsModel: ItemsModel) {
     import org.scalajs.dom.ext.KeyCode
     import InnerHtmlModifier._
 
     private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
     private val itemEventBus = new EventBus[Item]()
-    private val itemsSignal = itemsModel.itemsVar.signal.split(_.id)(renderItem)
+    private val itemsSignal = itemsModel.model.signal.split(_.id)(renderItem)
     private val rootElement = renderRoot(itemsSignal)
 
     def render: HtmlElement = rootElement
