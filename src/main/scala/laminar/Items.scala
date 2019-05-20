@@ -1,128 +1,135 @@
 package laminar
 
-import java.util.concurrent.atomic.AtomicInteger
-
 import com.raquo.laminar.api.L._
-import org.scalajs.dom.console._
-import org.scalajs.dom.ext.KeyCode
 
 case class Item(id: String = Item.newId(), value: String)
 
 object Item {
+  import java.util.concurrent.atomic.AtomicInteger
+
   private val autoinc = new AtomicInteger()
   val newId = () => autoinc.incrementAndGet.toString
   val empty = Item("", "")
 }
 
 object Items {
-  private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
-
   def apply(itemsVar: Var[List[Item]]): HtmlElement = {
+    val itemsModel = new ItemsModel(itemsVar)
+    val itemsView = new ItemsView(itemsModel)
+    itemsView.render
+  }
+
+  private class ItemsModel(val itemsVar: Var[List[Item]]) {
+    import org.scalajs.dom.console._
+
     log("items", itemsVar.now.toString)
-    new Items(itemsVar).rootElement
+
+    def onSelectItem(id: String): Item = {
+      val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
+      log("selected item", item.toString)
+      item
+    }
+
+    def onAddItem(value: String): Unit = {
+      itemsVar.update(_ :+ Item(value = value))
+      log("added item", itemsVar.now.toString)
+    }
+
+    def onEditItem(id: String, value: String): Unit = {
+      itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
+      log("edited item", onSelectItem(id).toString)
+    }
+
+    def onRemoveItem(id: String): Unit = {
+      itemsVar.update(_.filterNot(_.id == id))
+      log("removed item", itemsVar.now.toString)
+    }
   }
 
-  private def onSelectItem(itemsVar: Var[List[Item]], id: String): Item = {
-    val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
-    log("selected item", item.toString)
-    item
-  }
+  private class ItemsView (val itemsModel: ItemsModel) {
+    import org.scalajs.dom.ext.KeyCode
+    import InnerHtmlModifier._
 
-  private def onAddItem(itemsVar: Var[List[Item]], value: String): Unit = {
-    itemsVar.update(_ :+ Item(value = value))
-    log("added item", itemsVar.now.toString)
-  }
+    private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-  private def onEditItem(itemsVar: Var[List[Item]], id: String, value: String): Unit = {
-    itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
-    log("edited item", onSelectItem(itemsVar, id).toString)
-  }
+    private val itemEventBus = new EventBus[Item]()
+    private val itemsSignal = itemsModel.itemsVar.signal.split(_.id)(renderItem)
+    private val rootElement = renderRoot(itemsSignal)
 
-  private def onRemoveItem(itemsVar: Var[List[Item]], id: String): Unit = {
-    itemsVar.update(_.filterNot(_.id == id))
-    log("removed item", itemsVar.now.toString)
-  }
-}
+    def render: HtmlElement = rootElement
 
-class Items private(itemsVar: Var[List[Item]]) {
-  import InnerHtmlModifier._
-  import Items._
-
-  private val itemEventBus = new EventBus[Item]()
-  private val itemsSignal = itemsVar.signal.split(_.id)(renderItem)
-  private val rootElement = renderRoot(itemsSignal)
-
-  private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
-    div(cls("w3-container"),
-      div(
-        h4(cls("w3-light-grey w3-text-indigo"), "Item"),
-        renderAddItem,
-        renderEditItem
-      ),
-      div(
-        h4(cls("w3-light-grey w3-text-indigo"), "Items"),
-        renderItems(itemsSignal)
-      )
-    )
-
-  private def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
-    li(id(itemId), cls("w3-text-indigo w3-display-container"),
-      child.text <-- itemSignal.map(item.id + ". " + _.value),
-      inContext { li =>
-        span(cls("w3-button w3-display-right w3-text-indigo"),
-          onClick --> { _ =>
-            onRemoveItem(itemsVar, li.ref.id)
-            display.none(li)
-          },
-          unsafeInnerHtml := "&times;"
+    private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
+      div(cls("w3-container"),
+        div(
+          h4(cls("w3-light-grey w3-text-indigo"), "Item"),
+          renderAddItem,
+          renderEditItem
+        ),
+        div(
+          h4(cls("w3-light-grey w3-text-indigo"), "Items"),
+          renderItems(itemsSignal)
         )
-      },
-      inContext { li =>
-        onClick --> { _ => itemEventBus.writer.onNext(onSelectItem(itemsVar, li.ref.id)) }
-      }
-    )
+      )
 
-  private def renderItems(itemsSignal: Signal[List[Li]]): Div =
-    div(cls("w3-container"),
-      ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
-    )
+    private def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
+      li(id(itemId), cls("w3-text-indigo w3-display-container"),
+        child.text <-- itemSignal.map(item.id + ". " + _.value),
+        inContext { li =>
+          span(cls("w3-button w3-display-right w3-text-indigo"),
+            onClick --> { _ =>
+              itemsModel.onRemoveItem(li.ref.id)
+              display.none(li)
+            },
+            unsafeInnerHtml := "&times;"
+          )
+        },
+        inContext { li =>
+          onClick --> { _ => itemEventBus.writer.onNext(itemsModel.onSelectItem(li.ref.id)) }
+        }
+      )
 
-  private def renderAddItem: Div =
-    div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
-      div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
-        div(cls("w3-col"), width("85%"),
-          input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
-            inContext { input =>
-              onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                onAddItem(itemsVar, input.ref.value)
-                input.ref.value = ""
+    private def renderItems(itemsSignal: Signal[List[Li]]): Div =
+      div(cls("w3-container"),
+        ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
+      )
+
+    private def renderAddItem: Div =
+      div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
+        div(cls("w3-row"),
+          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
+          div(cls("w3-col"), width("85%"),
+            input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
+              inContext { input =>
+                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
+                  itemsModel.onAddItem(input.ref.value)
+                  input.ref.value = ""
+                }
               }
-            }
+            )
           )
         )
       )
-    )
 
-  private def renderEditItem: Div =
-    div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
-      div(cls("w3-row"),
-        div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
-        div(cls("w3-col"), width("85%"),
-          input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-            id <-- itemEventBus.events.map(_.id),
-            value <-- itemEventBus.events.map(_.value),
-            readOnly <-- itemEventBus.events.map(_.id.isEmpty),
-            inContext { input =>
-              onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                onEditItem(itemsVar, input.ref.id, input.ref.value)
-                input.ref.id = ""
-                input.ref.value = ""
-                readOnly(true)(input)
+    private def renderEditItem: Div =
+      div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
+        div(cls("w3-row"),
+          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
+          div(cls("w3-col"), width("85%"),
+            input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
+              id <-- itemEventBus.events.map(_.id),
+              value <-- itemEventBus.events.map(_.value),
+              readOnly <-- itemEventBus.events.map(_.id.isEmpty),
+              inContext { input =>
+                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
+                  itemsModel.onEditItem(input.ref.id, input.ref.value)
+                  input.ref.id = ""
+                  input.ref.value = ""
+                  readOnly(true)(input)
+                }
               }
-            }
+            )
           )
         )
       )
-    )
+  }
 }
