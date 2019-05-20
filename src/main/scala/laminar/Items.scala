@@ -53,12 +53,9 @@ object Items {
     import InnerHtmlModifier._
 
     private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
-
     private val itemEventBus = new EventBus[Item]()
-    private val itemsSignal = itemsModel.model.signal.split(_.id)(renderItem)
-    private val rootElement = renderRoot(itemsSignal)
 
-    def render: HtmlElement = rootElement
+    def render: HtmlElement = renderRoot(itemsModel.model.signal.split(_.id)(renderItem))
 
     private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
