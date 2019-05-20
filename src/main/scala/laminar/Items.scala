@@ -54,11 +54,11 @@ object Items {
     import org.scalajs.dom.ext.KeyCode
     import InnerHtmlModifier._
 
-    private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
+    val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
     def render: HtmlElement = renderRoot(itemsModel.itemsVar.signal.split(_.id)(renderItem))
 
-    private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
+    def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
         div(
           h4(cls("w3-light-grey w3-text-indigo"), "Item"),
@@ -71,7 +71,7 @@ object Items {
         )
       )
 
-    private def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
+    def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
       li(id(itemId), cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
         inContext { li =>
@@ -88,12 +88,12 @@ object Items {
         }
       )
 
-    private def renderItems(itemsSignal: Signal[List[Li]]): Div =
+    def renderItems(itemsSignal: Signal[List[Li]]): Div =
       div(cls("w3-container"),
         ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
       )
 
-    private def renderAddItem: Div =
+    def renderAddItem: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
@@ -110,7 +110,7 @@ object Items {
         )
       )
 
-    private def renderEditItem: Div =
+    def renderEditItem: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
