@@ -4,10 +4,10 @@ Laminar
 
 Items
 -----
->Items is an Html component that composes an ItemsModel and ItemsView used to render an HtmlElement.
+>Items is an Html component that composes a Model and View used to render an HtmlElement.
 
-1. Items 1 ---> 1 ItemsModel
-2. Items 1 ---> 1 ItemsView 1 ---> ItemsModel
+1. Items 1 ---> 1 Model
+2. Items 1 ---> 1 View 1 ---> Model
 
 Run
 ---
