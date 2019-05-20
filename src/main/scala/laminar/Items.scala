@@ -68,19 +68,19 @@ object Items {
       )
 
     def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
-      li(id(itemId), cls("w3-text-indigo w3-display-container"),
+      li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
         inContext { li =>
           span(cls("w3-button w3-display-right w3-text-indigo"),
             onClick --> { _ =>
-              model.onRemoveItem(li.ref.id)
+              model.onRemoveItem(itemId)
               display.none(li)
             },
             unsafeInnerHtml := "&times;"
           )
         },
-        inContext { li =>
-          onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(li.ref.id))) }
+        inContext { _ =>
+          onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(itemId))) }
         }
       )
 
