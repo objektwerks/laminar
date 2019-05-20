@@ -13,11 +13,7 @@ object Item {
 }
 
 object Items {
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = {
-    val model = new Model(itemsVar)
-    val view = new View(model)
-    view.render
-  }
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
 
   private class Model(val itemsVar: Var[List[Item]]) {
     import org.scalajs.dom.console._
