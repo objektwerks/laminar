@@ -19,12 +19,14 @@ object Items {
     itemsView.render
   }
 
-  private class ItemsModel(itemsVar: Var[List[Item]]) {
+  private class ItemsModel(val itemsVar: Var[List[Item]]) {
     import org.scalajs.dom.console._
 
     log("items", itemsVar.now.toString)
 
-    def model: Var[List[Item]] = itemsVar
+    val selectedItemVar: Var[Option[Item]] = Var(None)
+
+    def selectedItem: Item = selectedItemVar.now.getOrElse(Item.empty)
 
     def onSelectItem(id: String): Item = {
       val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
@@ -53,9 +55,8 @@ object Items {
     import InnerHtmlModifier._
 
     private val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
-    private val selectedItemVar: Var[Option[Item]] = Var(None)
 
-    def render: HtmlElement = renderRoot(itemsModel.model.signal.split(_.id)(renderItem))
+    def render: HtmlElement = renderRoot(itemsModel.itemsVar.signal.split(_.id)(renderItem))
 
     private def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
@@ -83,7 +84,7 @@ object Items {
           )
         },
         inContext { li =>
-          onClick --> { _ => selectedItemVar.set(Some(itemsModel.onSelectItem(li.ref.id))) }
+          onClick --> { _ => itemsModel.selectedItemVar.set(Some(itemsModel.onSelectItem(li.ref.id))) }
         }
       )
 
@@ -115,15 +116,14 @@ object Items {
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              id <-- selectedItemVar.signal.map(_.getOrElse(Item.empty).id),
-              value <-- selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
-              readOnly <-- selectedItemVar.signal.map(_.isEmpty),
+              value <-- itemsModel.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
+              readOnly <-- itemsModel.selectedItemVar.signal.map(_.isEmpty),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                  itemsModel.onEditItem(input.ref.id, input.ref.value)
+                  itemsModel.onEditItem(itemsModel.selectedItem.id, input.ref.value)
                   input.ref.id = ""
                   input.ref.value = ""
-                  selectedItemVar.set(None)
+                  itemsModel.selectedItemVar.set(None)
                 }
               }
             )
