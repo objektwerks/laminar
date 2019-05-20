@@ -48,7 +48,7 @@ object Items {
     }
   }
 
-  private class ItemsView (itemsModel: ItemsModel) {
+  private class ItemsView(itemsModel: ItemsModel) {
     import org.scalajs.dom.ext.KeyCode
     import InnerHtmlModifier._
 
