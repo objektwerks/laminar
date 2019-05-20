@@ -2,6 +2,13 @@ Laminar
 -------
 >Laminar feature tests.
 
+Items
+-----
+>Items is an Html component that composes an ItemsModel and ItemsView used to render an HtmlElement.
+
+1. Items 1 ---> 1 ItemsModel
+2. Items 1 ---> 1 ItemsView 1 ---> ItemsModel
+
 Run
 ---
 1. sbt clean compile fastOptJS
