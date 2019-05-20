@@ -14,12 +14,12 @@ object Item {
 
 object Items {
   def apply(itemsVar: Var[List[Item]]): HtmlElement = {
-    val itemsModel = new ItemsModel(itemsVar)
-    val itemsView = new ItemsView(itemsModel)
-    itemsView.render
+    val model = new Model(itemsVar)
+    val view = new View(model)
+    view.render
   }
 
-  private class ItemsModel(val itemsVar: Var[List[Item]]) {
+  private class Model(val itemsVar: Var[List[Item]]) {
     import org.scalajs.dom.console._
 
     log("items", itemsVar.now.toString)
@@ -50,13 +50,13 @@ object Items {
     }
   }
 
-  private class ItemsView(itemsModel: ItemsModel) {
+  private class View(model: Model) {
     import org.scalajs.dom.ext.KeyCode
     import InnerHtmlModifier._
 
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-    def render: HtmlElement = renderRoot(itemsModel.itemsVar.signal.split(_.id)(renderItem))
+    def render: HtmlElement = renderRoot(model.itemsVar.signal.split(_.id)(renderItem))
 
     def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
@@ -77,14 +77,14 @@ object Items {
         inContext { li =>
           span(cls("w3-button w3-display-right w3-text-indigo"),
             onClick --> { _ =>
-              itemsModel.onRemoveItem(li.ref.id)
+              model.onRemoveItem(li.ref.id)
               display.none(li)
             },
             unsafeInnerHtml := "&times;"
           )
         },
         inContext { li =>
-          onClick --> { _ => itemsModel.selectedItemVar.set(Some(itemsModel.onSelectItem(li.ref.id))) }
+          onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(li.ref.id))) }
         }
       )
 
@@ -101,7 +101,7 @@ object Items {
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                  itemsModel.onAddItem(input.ref.value)
+                  model.onAddItem(input.ref.value)
                   input.ref.value = ""
                 }
               }
@@ -116,14 +116,14 @@ object Items {
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              value <-- itemsModel.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
-              readOnly <-- itemsModel.selectedItemVar.signal.map(_.isEmpty),
+              value <-- model.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
+              readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                  itemsModel.onEditItem(itemsModel.selectedItem.id, input.ref.value)
+                  model.onEditItem(model.selectedItem.id, input.ref.value)
                   input.ref.id = ""
                   input.ref.value = ""
-                  itemsModel.selectedItemVar.set(None)
+                  model.selectedItemVar.set(None)
                 }
               }
             )
