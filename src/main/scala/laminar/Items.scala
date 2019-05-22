@@ -37,6 +37,7 @@ object Items {
 
     def onEditItem(id: String, value: String): Unit = {
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
+      selectedItemVar.set(None)
       log("edited item", onSelectItem(id).toString)
     }
 
@@ -119,7 +120,6 @@ object Items {
                   model.onEditItem(model.selectedItem.id, input.ref.value)
                   input.ref.id = ""
                   input.ref.value = ""
-                  model.selectedItemVar.set(None)
                 }
               }
             )
