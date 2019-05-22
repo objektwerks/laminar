@@ -22,11 +22,10 @@ object Items {
 
     def selectedItem: Item = selectedItemVar.now.getOrElse(Item.empty)
 
-    def onSelectItem(id: String): Item = {
-      val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
-      selectedItemVar.set(Some(item))
+    def onSelectItem(id: String): Unit = {
+      val item = itemsVar.now.find(_.id == id)
+      selectedItemVar.set(item)
       log("selected item", item.toString)
-      item
     }
 
     def onAddItem(value: String): Unit = {
@@ -71,10 +70,10 @@ object Items {
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
-          onClick.mapTo(item.id) --> model.onRemoveItem _,
+          onClick.mapTo(item.id) --> { id => model.onRemoveItem(id) },
           unsafeInnerHtml := "&times;"
         ),
-        onClick --> { _ => model.onSelectItem(item.id); () }
+        onClick.mapTo(item.id) --> { id => model.onSelectItem(id) }
       )
 
     def renderItems(itemsSignal: Signal[List[Li]]): Div =
