@@ -5,10 +5,8 @@ import com.raquo.laminar.api.L._
 case class Item(id: String = Item.newId(), value: String)
 
 object Item {
-  import java.util.concurrent.atomic.AtomicInteger
-
-  private val autoinc = new AtomicInteger()
-  val newId = () => autoinc.incrementAndGet.toString
+  private var autoinc = 0
+  val newId = () => { autoinc = autoinc + 1; autoinc.toString }
   val empty = Item("", "")
 }
 
@@ -71,18 +69,11 @@ object Items {
     def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
-        inContext { li =>
-          span(cls("w3-button w3-display-right w3-text-indigo"),
-            onClick --> { _ =>
-              model.onRemoveItem(itemId)
-              display.none(li)
-            },
-            unsafeInnerHtml := "&times;"
-          )
-        },
-        inContext { _ =>
-          onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(itemId))) }
-        }
+        span(cls("w3-button w3-display-right w3-text-indigo"),
+          onClick.mapTo(itemId) --> model.onRemoveItem _,
+          unsafeInnerHtml := "&times;"
+        ),
+        onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(itemId))) }
       )
 
     def renderItems(itemsSignal: Signal[List[Li]]): Div =
