@@ -89,8 +89,8 @@ object Items {
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
               inContext { input =>
-                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                  model.onAddItem(input.ref.value)
+                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
+                  model.onAddItem(value)
                   input.ref.value = ""
                 }
               }
