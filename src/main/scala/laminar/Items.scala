@@ -108,8 +108,8 @@ object Items {
               value <-- model.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
               readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
               inContext { input =>
-                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
-                  model.onEditItem(model.selectedItem.id, input.ref.value)
+                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
+                  model.onEditItem(model.selectedItem.id, value)
                 }
               }
             )
