@@ -3,7 +3,7 @@ package laminar
 import org.scalajs.dom.console._
 
 class Service {
-  def send(prefix: String, statement: String): Unit = log(prefix, statement)
+  def onChange(message: String, change: String): Unit = log(message, change)
 }
 
 object Service {

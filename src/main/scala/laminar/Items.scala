@@ -11,12 +11,10 @@ object Item {
 }
 
 object Items {
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
+  def apply(service: Service, itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(service, itemsVar)).render
 
-  private class Model(val itemsVar: Var[List[Item]]) {
-    import org.scalajs.dom.console._
-
-    log("items", itemsVar.now.toString)
+  private class Model(val service: Service, val itemsVar: Var[List[Item]]) {
+    service.onChange("items", itemsVar.now.toString)
 
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
@@ -25,23 +23,23 @@ object Items {
     def onSelectItem(id: String): Unit = {
       val item = itemsVar.now.find(_.id == id)
       selectedItemVar.set(item)
-      log("selected item", item.toString)
+      service.onChange("selected item", item.toString)
     }
 
     def onAddItem(value: String): Unit = {
       itemsVar.update(_ :+ Item(value = value))
-      log("added item", itemsVar.now.toString)
+      service.onChange("added item", itemsVar.now.toString)
     }
 
     def onEditItem(id: String, value: String): Unit = {
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
       selectedItemVar.set(None)
-      log("edited item", s"Item($id,$value)")
+      service.onChange("edited item", s"Item($id,$value)")
     }
 
     def onRemoveItem(id: String): Unit = {
       itemsVar.update(_.filterNot(_.id == id))
-      log("removed item", itemsVar.now.toString)
+      service.onChange("removed item", itemsVar.now.toString)
     }
   }
 

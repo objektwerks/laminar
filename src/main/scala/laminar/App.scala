@@ -11,7 +11,8 @@ object App {
   def init(): Unit = {
     val app = document.getElementById("app")
     val itemsVar = Var(List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool")))
-    val items = Items(itemsVar)
+    val service = Service()
+    val items = Items(service, itemsVar)
     render(app, items)
     ()
   }
