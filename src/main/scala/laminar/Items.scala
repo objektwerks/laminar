@@ -24,6 +24,7 @@ object Items {
 
     def onSelectItem(id: String): Item = {
       val item = itemsVar.now.find(_.id == id).getOrElse(Item.empty)
+      selectedItemVar.set(Some(item))
       log("selected item", item.toString)
       item
     }
@@ -36,7 +37,7 @@ object Items {
     def onEditItem(id: String, value: String): Unit = {
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
       selectedItemVar.set(None)
-      log("edited item", onSelectItem(id).toString)
+      log("edited item", s"Item($id,$value)")
     }
 
     def onRemoveItem(id: String): Unit = {
@@ -73,7 +74,7 @@ object Items {
           onClick.mapTo(itemId) --> model.onRemoveItem _,
           unsafeInnerHtml := "&times;"
         ),
-        onClick --> { _ => model.selectedItemVar.set(Some(model.onSelectItem(itemId))) }
+        onClick --> { _ => model.onSelectItem(itemId); () }
       )
 
     def renderItems(itemsSignal: Signal[List[Li]]): Div =
@@ -109,8 +110,6 @@ object Items {
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { _ =>
                   model.onEditItem(model.selectedItem.id, input.ref.value)
-                  input.ref.id = ""
-                  input.ref.value = ""
                 }
               }
             )
