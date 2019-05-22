@@ -52,7 +52,7 @@ object Items {
 
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-    def render: HtmlElement = renderRoot(model.itemsVar.signal.split(_.id)(renderItem))
+    def render: HtmlElement = renderRoot(model.itemsVar.signal.split(_.id)((_, item, itemSignal) => renderItem(item, itemSignal)))
 
     def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
@@ -67,14 +67,14 @@ object Items {
         )
       )
 
-    def renderItem(itemId: String, item: Item, itemSignal: Signal[Item]): Li =
+    def renderItem(item: Item, itemSignal: Signal[Item]): Li =
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
-          onClick.mapTo(itemId) --> model.onRemoveItem _,
+          onClick.mapTo(item.id) --> model.onRemoveItem _,
           unsafeInnerHtml := "&times;"
         ),
-        onClick --> { _ => model.onSelectItem(itemId); () }
+        onClick --> { _ => model.onSelectItem(item.id); () }
       )
 
     def renderItems(itemsSignal: Signal[List[Li]]): Div =
