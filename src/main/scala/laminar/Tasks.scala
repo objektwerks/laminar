@@ -29,23 +29,23 @@ object Tasks {
 
   private class Model(val tasksVar: Var[List[Task]]) {
     val _ = new Logger(tasksVar)
-    val selectedItemVar: Var[Option[Task]] = Var(None)
+    val selectedTaskVar: Var[Option[Task]] = Var(None)
 
-    def selectedItem: Task = selectedItemVar.now.getOrElse(Task.empty)
+    def selectedTask: Task = selectedTaskVar.now.getOrElse(Task.empty)
 
-    def onSelectItem(id: String): Unit = {
+    def onSelectedTask(id: String): Unit = {
       val task = tasksVar.now.find(_.id == id)
-      selectedItemVar.set(task)
+      selectedTaskVar.set(task)
     }
 
-    def onAddItem(value: String): Unit = tasksVar.update(_ :+ Task(value = value))
+    def onAddTask(value: String): Unit = tasksVar.update(_ :+ Task(value = value))
 
-    def onEditItem(id: String, value: String): Unit = {
+    def onEditTask(id: String, value: String): Unit = {
       tasksVar.update(_.map(task => if (task.id == id) task.copy(value = value) else task))
-      selectedItemVar.set(None)
+      selectedTaskVar.set(None)
     }
 
-    def onRemoveItem(id: String): Unit = tasksVar.update(_.filterNot(_.id == id))
+    def onRemoveTask(id: String): Unit = tasksVar.update(_.filterNot(_.id == id))
   }
 
   private class View(model: Model) {
@@ -64,7 +64,7 @@ object Tasks {
           renderEditTask
         ),
         div(
-          h4(cls("w3-light-grey w3-text-indigo"), "Items"),
+          h4(cls("w3-light-grey w3-text-indigo"), "Tasks"),
           renderTasks(tasksSignal)
         )
       )
@@ -73,10 +73,10 @@ object Tasks {
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- taskSignal.map(task.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
-          onClick.mapTo(task.id) --> { id => model.onRemoveItem(id) },
+          onClick.mapTo(task.id) --> { id => model.onRemoveTask(id) },
           unsafeInnerHtml := "&times;"
         ),
-        onClick.mapTo(task.id) --> { id => model.onSelectItem(id) }
+        onClick.mapTo(task.id) --> { id => model.onSelectedTask(id) }
       )
 
     def renderTasks(tasksSignal: Signal[List[Li]]): Div =
@@ -92,7 +92,7 @@ object Tasks {
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
-                  model.onAddItem(value)
+                  model.onAddTask(value)
                   input.ref.value = ""
                 }
               }
@@ -107,11 +107,11 @@ object Tasks {
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              value <-- model.selectedItemVar.signal.map(_.getOrElse(Task.empty).value),
-              readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
+              value <-- model.selectedTaskVar.signal.map(_.getOrElse(Task.empty).value),
+              readOnly <-- model.selectedTaskVar.signal.map(_.isEmpty),
               inContext { input =>
                 onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
-                  model.onEditItem(model.selectedItem.id, value)
+                  model.onEditTask(model.selectedTask.id, value)
                 }
               }
             )
