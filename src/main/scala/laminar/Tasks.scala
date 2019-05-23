@@ -2,9 +2,6 @@ package laminar
 
 import java.time.Instant
 
-import com.raquo.airstream.signal.{Signal, Var}
-import com.raquo.laminar.api.L._
-
 case class Task(id: String = Task.newId(),
                 value: String,
                 opened: Long = Instant.now.toEpochMilli,
@@ -17,6 +14,8 @@ object Task {
 }
 
 object Tasks {
+  import com.raquo.laminar.api.L._
+
   def apply(tasksVar: Var[List[Task]]): HtmlElement = new View(new Model(tasksVar)).render
 
   private class Logger(tasksVar: Var[List[Task]]) {

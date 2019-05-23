@@ -1,7 +1,5 @@
 package laminar
 
-import com.raquo.laminar.api.L._
-
 case class Item(id: String = Item.newId(), value: String)
 
 object Item {
@@ -11,6 +9,8 @@ object Item {
 }
 
 object Items {
+  import com.raquo.laminar.api.L._
+
   def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
 
   private class Logger(itemsVar: Var[List[Item]]) {
