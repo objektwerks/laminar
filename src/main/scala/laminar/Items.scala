@@ -11,11 +11,9 @@ object Item {
 }
 
 object Items {
-  def apply(service: Service, itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(service, itemsVar)).render
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
 
-  private class Model(val service: Service, val itemsVar: Var[List[Item]]) {
-    service.onChange("items", itemsVar.now.toString)
-
+  private class Model(val itemsVar: Var[List[Item]]) {
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def selectedItem: Item = selectedItemVar.now.getOrElse(Item.empty)
@@ -23,24 +21,16 @@ object Items {
     def onSelectItem(id: String): Unit = {
       val item = itemsVar.now.find(_.id == id)
       selectedItemVar.set(item)
-      service.onChange("selected item", item.toString)
     }
 
-    def onAddItem(value: String): Unit = {
-      itemsVar.update(_ :+ Item(value = value))
-      service.onChange("added item", itemsVar.now.toString)
-    }
+    def onAddItem(value: String): Unit = itemsVar.update(_ :+ Item(value = value))
 
     def onEditItem(id: String, value: String): Unit = {
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
       selectedItemVar.set(None)
-      service.onChange("edited item", s"Item($id,$value)")
     }
 
-    def onRemoveItem(id: String): Unit = {
-      itemsVar.update(_.filterNot(_.id == id))
-      service.onChange("removed item", itemsVar.now.toString)
-    }
+    def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
   }
 
   private class View(model: Model) {
