@@ -1,10 +1,9 @@
 package laminar
 
-case class Item(id: String = Item.newId(), value: String)
+case class Item(id: String = Item.id.increment(), value: String)
 
 object Item {
-  private var autoinc = 0
-  val newId = () => { autoinc = autoinc + 1; autoinc.toString }
+  val id = Id()
   val empty = Item("", "")
 }
 
