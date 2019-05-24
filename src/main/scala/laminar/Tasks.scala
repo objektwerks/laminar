@@ -1,18 +1,28 @@
 package laminar
 
-import java.time.Instant
+import scala.scalajs.js.Date
+import org.scalajs.dom.console._
 
 case class Task(id: String = Task.newId(),
                 value: String,
-                opened: Long = Instant.now.toEpochMilli,
-                closed: Long = Instant.now.toEpochMilli)
+                opened: Double = Date.now(),
+                closed: Double = Date.now())
 
 object Task {
   private var autoinc = 0
   val newId = () => { autoinc = autoinc + 1; autoinc.toString }
   val empty = Task("", "", 0, 0)
+
+  def timestampToDate(timestamp: Double): String = {
+    val iso = new Date(timestamp).toISOString()
+    val isoDate = iso.substring(0, iso.lastIndexOf("T"))
+    log("iso: ", iso)
+    log("iso datetime: ", isoDate)
+    isoDate
+  }
 }
 
+// TODO: Refactor UI!
 object Tasks {
   import com.raquo.laminar.api.L._
 
@@ -20,7 +30,6 @@ object Tasks {
 
   private class Logger(tasksVar: Var[List[Task]]) {
     import com.raquo.airstream.ownership.Owner
-    import org.scalajs.dom.console._
 
     implicit val owner = new Owner {}
     tasksVar.signal.foreach(tasks => log(s"tasks change event -> ${tasks.toString}"))
