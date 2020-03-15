@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     scalaVersion := "2.12.10",
     libraryDependencies ++= {
       Seq(
-        "com.raquo" %%% "laminar" % "0.7.1"
+        "com.raquo" %%% "laminar" % "0.7.2"
       )
     }
   )
