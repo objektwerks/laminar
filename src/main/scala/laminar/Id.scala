@@ -1,8 +1,11 @@
 package laminar
 
-class Id {
+class Id() {
   private var autoinc = 0
-  val increment = () => { autoinc = autoinc + 1; autoinc.toString }
+  def increment(): String = {
+    autoinc = autoinc + 1
+    autoinc.toString
+  }
 }
 
 object Id {
