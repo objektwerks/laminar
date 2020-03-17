@@ -4,7 +4,7 @@ import scala.scalajs.js.Date
 import org.scalajs.dom.console._
 
 object Dates {
-  def asString(): String = toDateAsString(Date.now())
+  def nowAsString(): String = toDateAsString(Date.now())
 
   def toDateAsString(timestamp: Double): String = {
     val iso = new Date(timestamp).toISOString()

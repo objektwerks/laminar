@@ -4,8 +4,8 @@ import org.scalajs.dom.console._
 
 case class Task(id: String = Task.id.increment(),
                 value: String,
-                opened: String = Dates.asString(),
-                closed: String = Dates.asString())
+                opened: String = Dates.nowAsString(),
+                closed: String = Dates.nowAsString())
 
 object Task {
   val id = Id()
