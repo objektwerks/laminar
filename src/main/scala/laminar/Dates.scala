@@ -14,7 +14,7 @@ object Dates {
     isoDate
   }
 
-  def toDataAsDouble(date: String): Double = {
+  def toDateAsDouble(date: String): Double = {
     val isoDate = new Date(date).valueOf()
     log("iso date: ", isoDate)
     isoDate
