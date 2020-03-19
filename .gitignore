@@ -1,8 +1,8 @@
 .bloop
 .idea
 .metals
-project/.bloop
 project/project/
 project/target/
+project/metals.sbt
 target/
 .DS_Store
