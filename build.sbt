@@ -1,4 +1,4 @@
-lazy val root = (project in file("."))
+lazy val laminar = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "laminar",
