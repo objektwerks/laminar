@@ -1,4 +1,4 @@
-package laminar
+package objektwerks
 
 import com.raquo.laminar.api.L._
 

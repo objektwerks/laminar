@@ -1,4 +1,4 @@
-package laminar
+package objektwerks
 
 import scala.scalajs.js.Date
 import org.scalajs.dom.console._

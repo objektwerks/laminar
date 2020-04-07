@@ -1,4 +1,4 @@
-package laminar
+package objektwerks
 
 case class Item(id: String = Item.id.increment(), value: String)
 

@@ -1,4 +1,4 @@
-package laminar
+package objektwerks
 
 import org.scalajs.dom.console._
 
