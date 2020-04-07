@@ -1,7 +1,7 @@
 lazy val laminar = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
-    name := "objektwerks",
+    name := "laminar",
     organization := "objektwerks",
     version := "0.1-SNAPSHOT",
     scalaVersion := "2.13.1",
