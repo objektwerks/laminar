@@ -16,13 +16,9 @@ object App {
     ()
   }
 
-  private def createItems(): HtmlElement = {
-    val itemsVar = Var(List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool")))
-    Items(itemsVar)
-  }
+  private def createItems(): HtmlElement =
+    Items( Var(List[Item](Item(value = "wash car"), Item(value = "mow yard"), Item(value = "clean pool"))) )
 
-  private def createTasks(): HtmlElement = {
-    val tasksVar = Var(List[Task](Task(value = "clean kitchen"), Task(value = "polish silver"), Task(value = "clean floors")))
-    Tasks(tasksVar)
-  }
+  private def createTasks(): HtmlElement =
+    Tasks( Var(List[Task](Task(value = "clean kitchen"), Task(value = "polish silver"), Task(value = "clean floors"))) )
 }
