@@ -4,10 +4,17 @@ Laminar
 
 Items
 -----
->Items is an Html component that composes a Model and View used to render an HtmlElement.
+>Items is an Html component that composes:
 
-1. Items 1 ---> 1 Model
-2. Items 1 ---> 1 View 1 ---> Model
+1. Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
+2. Items 1 ---> 1 Logger
+
+Tasks
+-----
+>Tasks is an Html component that composes:
+
+1. Tasks 1 ---> 1 View 1 ---> Model 1 ---> * Task
+2. Tasks 1 ---> 1 Logger
 
 Run
 ---
