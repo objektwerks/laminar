@@ -9,13 +9,6 @@ Items
 1. Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
 2. Items 1 ---> 1 Logger
 
-Tasks
------
->Tasks is an Html component that composes:
-
-1. Tasks 1 ---> 1 View 1 ---> Model 1 ---> * Task
-2. Tasks 1 ---> 1 Logger
-
 Run
 ---
 1. sbt clean compile fastOptJS
