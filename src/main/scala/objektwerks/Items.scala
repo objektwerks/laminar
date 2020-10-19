@@ -24,10 +24,10 @@ object Items {
     val logger = new Logger(itemsVar)
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
-    def selectedItem: Item = selectedItemVar.now.getOrElse(Item.empty)
+    def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)
 
     def onSelectItem(id: String): Unit = {
-      val item = itemsVar.now.find(_.id == id)
+      val item = itemsVar.now().find(_.id == id)
       selectedItemVar.set(item)
     }
 
