@@ -4,7 +4,7 @@ Laminar
 
 Items
 -----
->Items is an Html component that composes:
+>Items is a Html component that composes:
 
 1. Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
 2. Items 1 ---> 1 Logger
