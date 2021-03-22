@@ -8,14 +8,10 @@ class Id() {
   }
 }
 
-object Id {
-  def apply(): Id = new Id()
-}
-
 case class Item(id: String = Item.id.increment(), value: String)
 
 object Item {
-  val id = Id()
+  val id = new Id()
   val empty = Item("", "")
 }
 
