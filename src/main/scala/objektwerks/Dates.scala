@@ -1,7 +1,8 @@
 package objektwerks
 
-import scala.scalajs.js.Date
 import org.scalajs.dom.console._
+
+import scala.scalajs.js.Date
 
 object Dates {
   def nowAsString(): String = toDateAsString(Date.now())

@@ -21,7 +21,7 @@ object Items {
   }
 
   private class Model(val itemsVar: Var[List[Item]]) {
-    val logger = new Logger(itemsVar)
+    locally { val _ = new Logger(itemsVar) }
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)

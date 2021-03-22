@@ -1,6 +1,7 @@
 package objektwerks
 
 import com.raquo.laminar.api.L._
+
 import org.scalajs.dom.document
 
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
