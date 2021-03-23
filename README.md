@@ -11,6 +11,8 @@ Items
 
 Run
 ---
-1. sbt clean compile fastOptJS
-2. Open index.html in browser via Intellij open html file in target browser feature.
-3. In your browser tab you will see a url like this: http://localhost:63342/laminar/index.html?_ijt=107dmvtt4ph53181nmhcp18d4i
+1. sbt clean compile fastLinkJS
+2. Open src/main/resources/index.html.
+3. Select brower option from editor popup.
+4. Select newly opened tab to see index.html.
+5. Open Developer Tools to see browser console.
