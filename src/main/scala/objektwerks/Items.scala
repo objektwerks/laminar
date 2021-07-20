@@ -24,7 +24,7 @@ object Items {
     import com.raquo.airstream.ownership.Owner
     import org.scalajs.dom.console._
 
-    implicit val owner = new Owner {}
+    implicit val owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
   }
 
