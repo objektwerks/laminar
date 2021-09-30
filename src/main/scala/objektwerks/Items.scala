@@ -75,6 +75,11 @@ object Items {
         )
       )
 
+    def renderItems(itemsSignal: Signal[List[Li]]): Div =
+      div(cls("w3-container"),
+        ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
+      )
+
     def renderItem(item: Item, itemSignal: Signal[Item]): Li =
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
@@ -83,11 +88,6 @@ object Items {
           unsafeInnerHtml := "&times;"
         ),
         onClick.mapTo(item.id) --> { id => model.onSelectItem(id) }
-      )
-
-    def renderItems(itemsSignal: Signal[List[Li]]): Div =
-      div(cls("w3-container"),
-        ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
       )
 
     def renderAddItem: Div =
