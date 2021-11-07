@@ -8,7 +8,6 @@ lazy val laminar = (project in file("."))
     libraryDependencies ++= {
       Seq(
         "com.raquo" %%% "laminar" % "0.13.1",
-        "com.outr" %%% "scribe" % "3.6.3",
         "com.lihaoyi" %%% "utest" % "0.7.10" % Test
       )
     },
