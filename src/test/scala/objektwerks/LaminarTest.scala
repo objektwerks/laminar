@@ -7,8 +7,10 @@ import utest._
 object LaminarTest extends TestSuite {
   val tests = Tests {
     test("var") {
-      val integerVar = Var(3)
-      assert( integerVar.now() == 3 )
+      val integerVar = Var(1)
+      assert( integerVar.now() == 1 )
+      integerVar.set(2)
+      assert( integerVar.now() == 2 )
     }
   }
 }
