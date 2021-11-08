@@ -7,7 +7,7 @@ lazy val laminar = (project in file("."))
     scalaVersion := "2.13.7",
     libraryDependencies ++= {
       Seq(
-        "com.raquo" %%% "laminar" % "0.13.1",
+        "com.raquo" %%% "laminar" % "0.14.0",
         "com.lihaoyi" %%% "utest" % "0.7.10" % Test
       )
     },
