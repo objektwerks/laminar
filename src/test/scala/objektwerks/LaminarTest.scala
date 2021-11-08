@@ -9,10 +9,15 @@ object LaminarTest extends TestSuite {
     test("var") {
       val integerVar = Var(1)
       assert( integerVar.now() == 1 )
+
       integerVar.set(2)
       assert( integerVar.now() == 2 )
+
       integerVar.update(i => i + 1)
       assert( integerVar.now() == 3 )
+
+      implicit val owner = new Owner {}
+      assert( integerVar.signal.observe.now() == 3 )
     }
   }
 }
