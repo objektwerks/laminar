@@ -11,6 +11,8 @@ object LaminarTest extends TestSuite {
       assert( integerVar.now() == 1 )
       integerVar.set(2)
       assert( integerVar.now() == 2 )
+      integerVar.update(i => i + 1)
+      assert( integerVar.now() == 3 )
     }
   }
 }
