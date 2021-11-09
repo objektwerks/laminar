@@ -35,7 +35,11 @@ object LaminarTest extends TestSuite {
     }
 
     test("signal") {
-
+      val (stream, callback) = EventStream.withCallback[Int]
+      val intSignal = stream.startWith(0)
+      implicit val owner = new Owner {}
+      intSignal.changes.foreach { i => assert(i == 1) }
+      callback(1)
     }
   }
 }
