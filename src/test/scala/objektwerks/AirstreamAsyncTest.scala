@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import utest._
 
-object LaminarAsyncTest extends TestSuite {
+object AirstreamAsyncTest extends TestSuite {
   val tests = Tests {
     test("ajax") {
       val stream = AjaxEventStream
