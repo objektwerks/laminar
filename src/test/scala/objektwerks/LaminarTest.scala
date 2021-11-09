@@ -1,23 +1,11 @@
 package objektwerks
 
-import com.raquo.airstream.web.AjaxEventStream
 import com.raquo.laminar.api.L._
 
 import utest._
 
 object LaminarTest extends TestSuite {
   val tests = Tests {
-    test("ajax") {
-      implicit val owner = new Owner {}
-      AjaxEventStream
-        .get("http://api.icndb.com/jokes/random/")
-        .foreach { response =>
-          val joke = response.responseText
-          println(joke)
-          assert(joke.nonEmpty)
-        }
-    }
-
     test("var") {
       val integerVar = Var(1)
       assert( integerVar.now() == 1 )
@@ -56,4 +44,5 @@ object LaminarTest extends TestSuite {
       assert( intSignal.observe.now() == 1 )
     }
   }
+  TestRunner.run(tests)
 }
