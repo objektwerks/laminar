@@ -13,7 +13,9 @@ object LaminarAsyncTest extends TestSuite {
     test("ajax") {
       val stream = AjaxEventStream
         .get("http://api.icndb.com/jokes/random/")
-        .map { response => response.responseText
+        .map { response =>
+          println(response.responseText)
+          response.responseText
         }
         .recover { case error: AjaxStreamError => Some(error.getMessage) }
       val signal = stream.toSignal("").observe(new Owner {})
