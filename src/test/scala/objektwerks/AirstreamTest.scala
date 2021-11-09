@@ -4,7 +4,7 @@ import com.raquo.laminar.api.L._
 
 import utest._
 
-object LaminarTest extends TestSuite {
+object AirstreamTest extends TestSuite {
   val tests = Tests {
     test("var") {
       val integerVar = Var(1)
