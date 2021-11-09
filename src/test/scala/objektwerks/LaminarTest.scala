@@ -19,5 +19,11 @@ object LaminarTest extends TestSuite {
       implicit val owner = new Owner {}
       assert( integerVar.signal.observe.now() == 3 )
     }
+    test("eventbus") {
+      val intEventBus = new EventBus[Int]()
+      implicit val owner = new Owner {}
+      intEventBus.events.foreach { i => assert(i == 1) }
+      intEventBus.emit(1)
+    }
   }
 }
