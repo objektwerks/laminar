@@ -44,5 +44,6 @@ object AirstreamTest extends TestSuite {
       assert( intSignal.observe.now() == 1 )
     }
   }
+
   TestRunner.run(tests)
 }
