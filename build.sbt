@@ -8,7 +8,7 @@ lazy val laminar = (project in file("."))
     libraryDependencies ++= {
       Seq(
         "com.raquo" %%% "laminar" % "0.14.2",
-        "com.lihaoyi" %%% "ujson" % "1.4.2",
+        "com.lihaoyi" %%% "ujson" % "1.4.3",
         "com.lihaoyi" %%% "utest" % "0.7.10" % Test
       )
     },
