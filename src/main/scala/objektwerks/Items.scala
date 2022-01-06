@@ -6,7 +6,7 @@ object Item:
   private var id = 0
   val empty = Item("", "")
 
-  def newId: String =
+  private def newId: String =
     id = id + 1
     id.toString
 
