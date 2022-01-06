@@ -10,10 +10,8 @@ import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 object App:
   @JSExport
   def init(): Unit =
-    val items = List( Item(value = "wash car") )
-    val varItems = Var( items )
     render(
       container = document.getElementById("app"),
-      rootNode = Items( varItems )
+      rootNode = Items( Var( List( Item(value = "wash car") ) ) )
     )
     ()
