@@ -44,12 +44,13 @@ object Items:
 
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
-    def render: HtmlElement = renderRoot(
-      model
-        .itemsVar
-        .signal
-        .split(_.id)( (_, item, itemSignal) => renderItem(item, itemSignal) )
-    )
+    def render: HtmlElement =
+      renderRoot(
+        model
+          .itemsVar
+          .signal
+          .split(_.id)( (_, item, itemSignal) => renderItem(item, itemSignal) )
+      )
 
     def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
