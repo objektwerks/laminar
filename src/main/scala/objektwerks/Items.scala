@@ -17,34 +17,30 @@ object Items:
 
   def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
 
-  private class Logger(itemsVar: Var[List[Item]]) {
+  private class Logger(itemsVar: Var[List[Item]]):
     import com.raquo.airstream.ownership.Owner
     import org.scalajs.dom.console._
 
     implicit val owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
-  }
 
-  private class Model(val itemsVar: Var[List[Item]]) {
+  private class Model(val itemsVar: Var[List[Item]]):
     locally { val _ = new Logger(itemsVar) }
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)
 
-    def onSelectItem(id: String): Unit = {
+    def onSelectItem(id: String): Unit =
       val item = itemsVar.now().find(_.id == id)
       selectedItemVar.set(item)
-    }
 
     def onAddItem(value: String): Unit = itemsVar.update(_ :+ Item(value = value))
 
-    def onEditItem(id: String, value: String): Unit = {
+    def onEditItem(id: String, value: String): Unit =
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
       selectedItemVar.set(None)
-    }
 
     def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
-  }
 
   private class View(model: Model) {
     import org.scalajs.dom.ext.KeyCode
