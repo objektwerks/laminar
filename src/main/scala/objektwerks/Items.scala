@@ -13,7 +13,7 @@ object Item:
 object Items:
   import com.raquo.laminar.api.L._
 
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = View( Model(itemsVar) ).render
 
   private class Logger(itemsVar: Var[List[Item]]):
     import com.raquo.airstream.ownership.Owner
@@ -23,7 +23,7 @@ object Items:
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
   private class Model(val itemsVar: Var[List[Item]]):
-    locally { val _ = new Logger(itemsVar) }
+    locally { val _ = Logger(itemsVar) }
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)
