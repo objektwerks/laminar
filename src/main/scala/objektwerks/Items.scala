@@ -1,6 +1,12 @@
 package objektwerks
 
 import com.raquo.laminar.api.L._
+import com.raquo.airstream.ownership.Owner
+
+import org.scalajs.dom.console._
+import org.scalajs.dom.ext.KeyCode
+
+import InnerHtmlModifier._
 
 case class Item(id: String = Item.nextId , value: String)
 
@@ -16,9 +22,6 @@ case class Items(itemsVar: Var[List[Item]]):
   def render: HtmlElement = View( Model(itemsVar) ).render
 
   private class Model(val itemsVar: Var[List[Item]]):
-    import com.raquo.airstream.ownership.Owner
-    import org.scalajs.dom.console._
-
     given owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
@@ -39,9 +42,6 @@ case class Items(itemsVar: Var[List[Item]]):
     def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
 
   private class View(model: Model):
-    import org.scalajs.dom.ext.KeyCode
-    import InnerHtmlModifier._
-
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
     def render: HtmlElement =
