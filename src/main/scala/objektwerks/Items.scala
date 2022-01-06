@@ -8,7 +8,7 @@ import org.scalajs.dom.ext.KeyCode
 
 import InnerHtmlModifier._
 
-final case class Item(id: String = Item.nextId , value: String)
+final case class Item(id: String = Item.nextId, value: String)
 
 object Item:
   private var id = 0
