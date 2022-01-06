@@ -23,6 +23,4 @@ Run
 Items
 -----
 >Items is a Html component that composes:
-
-1. Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
-2. Items 1 ---> 1 Logger
+* Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
