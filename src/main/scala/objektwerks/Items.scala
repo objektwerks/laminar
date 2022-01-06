@@ -42,7 +42,7 @@ object Items:
 
     def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
 
-  private class View(model: Model) {
+  private class View(model: Model):
     import org.scalajs.dom.ext.KeyCode
     import InnerHtmlModifier._
 
@@ -117,4 +117,3 @@ object Items:
           )
         )
       )
-  }
