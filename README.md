@@ -4,7 +4,7 @@ Laminar
 
 Install
 -------
->jsdom must be install locally - not globally!
+>jsdom **must** be installed locally - **not** globally!
 1. npm install jsdom
 
 Test
