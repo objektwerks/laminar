@@ -21,6 +21,7 @@ object AirstreamAsyncTest extends TestSuite {
         .map { response =>
           val joke = parse(response.responseText)
           println(s"*** $joke")
+          assert(joke.nonEmpty)
           joke
         }
         .recover { case error: AjaxStreamError => Some(error.getMessage) }
