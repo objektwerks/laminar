@@ -5,6 +5,11 @@ lazy val laminar = (project in file("."))
     organization := "objektwerks",
     version := "0.1-SNAPSHOT",
     scalaVersion := "2.13.7",
+    scalacOptions ++= {
+      Seq(
+        "-P:scalajs:nowarnGlobalExecutionContext"
+      )
+    },
     libraryDependencies ++= {
       Seq(
         "com.raquo" %%% "laminar" % "0.14.2",
@@ -13,5 +18,5 @@ lazy val laminar = (project in file("."))
       )
     },
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
-    testFrameworks += new TestFramework("utest.runner.Framework")
+    testFrameworks += new TestFramework("utest.runner.Framework")    
   )
