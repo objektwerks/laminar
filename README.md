@@ -1,6 +1,6 @@
 Laminar
 -------
->Laminar and Airstream feature tests.
+>Laminar, Airstream and Waypoint feature tests using ScalaJs and Scala 3.
 
 Install
 -------
