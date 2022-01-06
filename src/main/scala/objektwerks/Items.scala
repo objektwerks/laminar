@@ -1,12 +1,12 @@
 package objektwerks
 
-case class Item(id: String = Item.newId , value: String)
+case class Item(id: String = Item.nextId , value: String)
 
 object Item:
   private var id = 0
   val empty = Item("", "")
 
-  private def newId: String =
+  private def nextId: String =
     id = id + 1
     id.toString
 
