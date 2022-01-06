@@ -15,15 +15,13 @@ object Items:
 
   def apply(itemsVar: Var[List[Item]]): HtmlElement = View( Model(itemsVar) ).render
 
-  private class Logger(itemsVar: Var[List[Item]]):
+  private class Model(val itemsVar: Var[List[Item]]):
     import com.raquo.airstream.ownership.Owner
     import org.scalajs.dom.console._
 
     given owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
-  private class Model(val itemsVar: Var[List[Item]]):
-    locally { val _ = Logger(itemsVar) }
     val selectedItemVar: Var[Option[Item]] = Var(None)
 
     def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)
