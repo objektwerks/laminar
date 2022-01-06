@@ -11,7 +11,7 @@ object App:
   @JSExport
   def init(): Unit =
     render(
-      container = document.getElementById("app"),
+      container = document.getElementById("content"),
       rootNode = Items( Var( List( Item(value = "wash car") ) ) )
     )
     ()
