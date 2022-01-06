@@ -8,7 +8,7 @@ import org.scalajs.dom.ext.KeyCode
 
 import InnerHtmlModifier._
 
-case class Item(id: String = Item.nextId , value: String)
+final case class Item(id: String = Item.nextId , value: String)
 
 object Item:
   private var id = 0
@@ -18,10 +18,10 @@ object Item:
     id = id + 1
     id.toString
 
-case class Items(itemsVar: Var[List[Item]]):
+final case class Items(itemsVar: Var[List[Item]]):
   def render: HtmlElement = View( Model(itemsVar) ).render
 
-  private class Model(val itemsVar: Var[List[Item]]):
+  private final class Model(val itemsVar: Var[List[Item]]):
     given owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
@@ -41,7 +41,7 @@ case class Items(itemsVar: Var[List[Item]]):
 
     def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
 
-  private class View(model: Model):
+  private final class View(model: Model):
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
     def render: HtmlElement =
