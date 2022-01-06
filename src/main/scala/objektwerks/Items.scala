@@ -1,5 +1,7 @@
 package objektwerks
 
+import com.raquo.laminar.api.L._
+
 case class Item(id: String = Item.nextId , value: String)
 
 object Item:
@@ -10,10 +12,8 @@ object Item:
     id = id + 1
     id.toString
 
-object Items:
-  import com.raquo.laminar.api.L._
-
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = View( Model(itemsVar) ).render
+case class Items(itemsVar: Var[List[Item]]):
+  def render: HtmlElement = View( Model(itemsVar) ).render
 
   private class Model(val itemsVar: Var[List[Item]]):
     import com.raquo.airstream.ownership.Owner
