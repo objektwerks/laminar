@@ -1,9 +1,10 @@
 Laminar
 -------
->Laminar feature tests.
+>Laminar and Airstream feature tests.
 
 Install
 -------
+>jsdom must be install locally - not globally!
 1. npm install jsdom
 
 Test
