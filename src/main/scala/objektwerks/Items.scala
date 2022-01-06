@@ -1,21 +1,18 @@
 package objektwerks
 
-class Id() {
+class Id():
   private var autoinc = 0
-  def increment(): String = {
+  def increment(): String =
     autoinc = autoinc + 1
     autoinc.toString
-  }
-}
 
 case class Item(id: String = Item.id.increment(), value: String)
 
-object Item {
+object Item:
   val id = new Id()
   val empty = Item("", "")
-}
 
-object Items {
+object Items:
   import com.raquo.laminar.api.L._
 
   def apply(itemsVar: Var[List[Item]]): HtmlElement = new View(new Model(itemsVar)).render
@@ -125,4 +122,3 @@ object Items {
         )
       )
   }
-}
