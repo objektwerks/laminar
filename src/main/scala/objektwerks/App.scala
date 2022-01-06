@@ -7,9 +7,9 @@ import org.scalajs.dom.document
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("App")
-object App {
+object App:
   @JSExport
-  def init(): Unit = {
+  def init(): Unit =
     val items = List( Item(value = "wash car") )
     val varItems = Var( items )
     render(
@@ -17,5 +17,3 @@ object App {
       rootNode = Items( varItems )
     )
     ()
-  }
-}
