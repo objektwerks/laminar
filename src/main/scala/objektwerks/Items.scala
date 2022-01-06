@@ -1,16 +1,14 @@
 package objektwerks
 
-class Id():
-  private var autoinc = 0
-  def increment(): String =
-    autoinc = autoinc + 1
-    autoinc.toString
-
-case class Item(id: String = Item.id.increment(), value: String)
+case class Item(id: String = Item.newId , value: String)
 
 object Item:
-  val id = new Id()
+  private var id = 0
   val empty = Item("", "")
+
+  def newId: String =
+    id = id + 1
+    id.toString
 
 object Items:
   import com.raquo.laminar.api.L._
