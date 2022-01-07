@@ -3,7 +3,7 @@ package objektwerks
 import com.raquo.laminar.api.L.*
 
 object LoginView:
-  def apply: HtmlElement =
+  def apply(): HtmlElement =
     div(
       h4(cls("w3-light-grey w3-text-indigo"), "Login"),
       input(
