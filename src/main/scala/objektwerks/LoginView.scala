@@ -10,5 +10,10 @@ object LoginView:
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("text"),
         required(true)
-      )
+      ),
+      button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
+        onClick --> { _ =>
+          Router.splitter.pageSignal.map(_ => ItemsPage)
+        }
+      }
     )
