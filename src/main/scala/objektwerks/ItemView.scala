@@ -87,7 +87,7 @@ object ItemView:
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
               inContext { input =>
-                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
+                onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
                   model.onAddItem(value)
                   input.ref.value = ""
                 }
@@ -105,10 +105,8 @@ object ItemView:
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
               value <-- model.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
               readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
-              inContext { input =>
-                onEnterPress.mapTo(input.ref.value).filter(_.nonEmpty) --> { value =>
-                  model.onEditItem(model.selectedItem.id, value)
-                }
+              onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
+                model.onEditItem(model.selectedItem.id, value)
               }
             )
           )
