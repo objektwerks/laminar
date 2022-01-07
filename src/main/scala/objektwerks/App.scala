@@ -1,6 +1,6 @@
 package objektwerks
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 
 import org.scalajs.dom.document
 
