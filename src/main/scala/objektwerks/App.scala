@@ -7,11 +7,14 @@ import org.scalajs.dom.document
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("App")
-object App:
+object App extends Router:
   @JSExport
   def init(): Unit =
+    val app = div(
+      child <-- router.$currentPage.map(Page.render)
+    )
     render(
       container = document.getElementById("content"),
-      rootNode = Page.render(LoginPage)
+      rootNode = app
     )
     ()

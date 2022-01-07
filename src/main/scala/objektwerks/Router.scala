@@ -10,7 +10,7 @@ import org.scalajs.dom
 
 import Serializer.given
 
-sealed trait Router:
+trait Router:
   val loginRoute = Route.static(LoginPage, root / "login" / endOfSegments)
   val itemsRoute = Route.static(ItemsPage, root / "items" / endOfSegments)
 
