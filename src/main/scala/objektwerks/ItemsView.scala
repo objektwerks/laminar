@@ -19,7 +19,7 @@ object Item:
     id.toString
 
 object ItemsView:  
-  def apply(items: List[Item]): HtmlElement = Renderer( Model( Var(items) ) ).render
+  def apply(items: List[Item] = List.empty[Item]): HtmlElement = Renderer( Model( Var(items) ) ).render
 
   private final class Model(val itemsVar: Var[List[Item]]):
     given owner: Owner = new Owner {}
