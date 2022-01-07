@@ -1,6 +1,6 @@
 package objektwerks
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 import com.raquo.airstream.ownership.Owner
 
 import org.scalajs.dom.console._
