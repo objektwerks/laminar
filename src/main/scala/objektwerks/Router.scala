@@ -16,9 +16,9 @@ trait Router:
 
   val router = new com.raquo.waypoint.Router[Page](
     routes = List(loginRoute, itemsRoute),
-    getPageTitle = _.toString,
     serializePage = page => write(page)(pageRW),
-    deserializePage = pageAsString => read(pageAsString)(pageRW)
+    deserializePage = pageAsString => read(pageAsString)(pageRW),
+    getPageTitle = _.toString,
   )(
     $popStateEvent = L.windowEvents.onPopState,
     owner = L.unsafeWindowOwner
