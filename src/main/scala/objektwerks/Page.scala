@@ -5,9 +5,3 @@ import com.raquo.laminar.api.L.*
 sealed trait Page
 case object LoginPage extends Page
 case object ItemsPage extends Page
-
-object Page:
-  def render(page: Page): HtmlElement =
-    page match
-      case LoginPage => LoginView()
-      case ItemsPage => ItemsView()

@@ -11,11 +11,10 @@ object App extends Router:
   @JSExport
   def init(): Unit =
     val app = div(
-      child <-- router.$currentPage.map(Page.render)
+      child <-- splitter.$view
     )
     render(
       container = document.getElementById("content"),
       rootNode = app
     )
-    router.replaceState(LoginPage)
     ()
