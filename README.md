@@ -25,5 +25,5 @@ Model
 * Page: LoginPage, ItemsPage
 * Serializer: Item, ItemsPage, Page
 * LoginView
-* ItemView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Item
+* ItemsView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Item
 * Router 1 ---> * Route 1 ---> 1 LoginPage, ItemsPage
