@@ -3,10 +3,10 @@ package objektwerks
 import com.raquo.laminar.api.L.*
 import com.raquo.airstream.ownership.Owner
 
-import org.scalajs.dom.console._
+import org.scalajs.dom.console.*
 import org.scalajs.dom.ext.KeyCode
 
-import InnerHtmlModifier._
+import InnerHtmlModifier.*
 
 final case class Item(id: String = Item.nextId, value: String)
 
