@@ -20,7 +20,10 @@ Run
 4. Select newly opened tab to see index.html.
 5. Open Developer Tools to see browser console.
 
-Items
+Model
 -----
->Items is a Html component that composes:
-* Items 1 ---> 1 View 1 ---> 1 Model 1 ---> * Item
+* Page: LoginPage, ItemsPage
+* Serializer: Item, ItemsPage, Page
+* LoginView
+* ItemView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Item
+* Router 1 ---> * Route 1 ---> 1 LoginPage, ItemsPage
