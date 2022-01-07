@@ -19,9 +19,9 @@ object Item:
     id.toString
 
 object Items:
-  def apply(itemsVar: Var[List[Item]]): HtmlElement = View( Model(itemsVar) ).render
+  def apply(itemsVar: Var[List[Item]]): HtmlElement = Renderer( Model(itemsVar) ).render
 
-  private final case class Model(val itemsVar: Var[List[Item]]):
+  private final class Model(val itemsVar: Var[List[Item]]):
     given owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
@@ -41,7 +41,7 @@ object Items:
 
     def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
 
-  private final case class View(model: Model):
+  private final class Renderer(model: Model):
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
 
     def render: HtmlElement =
