@@ -23,8 +23,3 @@ sealed trait Router:
     $popStateEvent = L.windowEvents.onPopState,
     owner = L.unsafeWindowOwner
   )
-
-  def renderPage(page: Page): HtmlElement =
-    page match
-      case LoginPage => LoginView()
-      case ItemsPage => ItemsView(List(Item(value = "wash car")))
