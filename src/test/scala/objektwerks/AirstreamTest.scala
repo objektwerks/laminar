@@ -1,8 +1,8 @@
 package objektwerks
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 
-import utest._
+import utest.*
 
 object AirstreamTest extends TestSuite {
   val tests = Tests {
