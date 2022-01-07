@@ -12,6 +12,6 @@ object App:
   def init(): Unit =
     render(
       container = document.getElementById("content"),
-      rootNode = Items(Var(List(Item(value = "drink ipa")))).render
+      rootNode = Items(Var(List(Item(value = "drink ipa"))))
     )
     ()
