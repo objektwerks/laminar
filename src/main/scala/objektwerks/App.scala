@@ -12,6 +12,6 @@ object App:
   def init(): Unit =
     render(
       container = document.getElementById("content"),
-      rootNode = LoginView() // TODO!
+      rootNode = Page.render(LoginPage)
     )
     ()
