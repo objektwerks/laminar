@@ -2,11 +2,11 @@ package objektwerks
 
 import com.raquo.airstream.web.AjaxEventStream
 import com.raquo.airstream.web.AjaxEventStream.AjaxStreamError
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import utest._
+import utest.*
 
 object AirstreamAsyncTest extends TestSuite {
   def parse(joke: String): String = {
