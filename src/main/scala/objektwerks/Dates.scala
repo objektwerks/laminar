@@ -1,6 +1,6 @@
 package objektwerks
 
-import org.scalajs.dom.console._
+import org.scalajs.dom.console.*
 
 import scala.scalajs.js.Date
 
