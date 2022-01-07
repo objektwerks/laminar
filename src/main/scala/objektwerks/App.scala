@@ -7,11 +7,11 @@ import org.scalajs.dom.document
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("App")
-object App extends Router:
+object App:
   @JSExport
   def init(): Unit =
     val app = div(
-      child <-- splitter.$view
+      child <-- Router.splitter.$view
     )
     render(
       container = document.getElementById("content"),
