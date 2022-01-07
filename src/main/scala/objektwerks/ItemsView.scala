@@ -4,7 +4,7 @@ import com.raquo.laminar.api.L.*
 import com.raquo.airstream.ownership.Owner
 
 import org.scalajs.dom.console.log
-import org.scalajs.dom.ext.KeyCode
+import org.scalajs.dom.KeyCode
 
 import InnerHtmlModifier.*
 
