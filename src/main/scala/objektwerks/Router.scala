@@ -12,13 +12,13 @@ import Serializer.given
 
 sealed trait Router:
   val loginRoute = Route.static(LoginPage, root / "login" / endOfSegments)
-  val itemsRoute = Route.static(LoginPage, root / "items" / endOfSegments)
+  val itemsRoute = Route.static(ItemsPage, root / "items" / endOfSegments)
 
   val router = new com.raquo.waypoint.Router[Page](
     routes = List(loginRoute, itemsRoute),
     getPageTitle = _.toString,
     serializePage = page => write(page)(pageRW),
-    deserializePage = pageStr => read(pageStr)(pageRW)
+    deserializePage = pageAsString => read(pageAsString)(pageRW)
   )(
     $popStateEvent = L.windowEvents.onPopState,
     owner = L.unsafeWindowOwner
