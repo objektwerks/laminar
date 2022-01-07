@@ -17,4 +17,5 @@ object App extends Router:
       container = document.getElementById("content"),
       rootNode = app
     )
+    router.replaceState(LoginPage)
     ()
