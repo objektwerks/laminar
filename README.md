@@ -15,10 +15,10 @@ Test
 Run
 ---
 1. sbt clean compile fastLinkJS
-2. Open: 1) src/main/resources/index.html or 2) target/scala-3.1.0/classes/index.html
-3. Select: 1) brower option from editor popup or 2) Open with Live Server
-4. Select newly opened browser tab to see index.html.
-5. Open Developer Tools to see browser console and the like.
+2. Select target/scala-3.1.0/classes/index.html
+3. Open with Intellij or Live Server
+4. Select newly opened browser tab to view index.html
+5. Open Developer Tools
 
 Model
 -----
