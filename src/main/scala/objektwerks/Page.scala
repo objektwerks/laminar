@@ -7,7 +7,7 @@ case object LoginPage extends Page
 case object ItemsPage extends Page
 
 object Page:
-  def renderPage(page: Page): HtmlElement =
+  def render(page: Page): HtmlElement =
     page match
       case LoginPage => LoginView()
       case ItemsPage => ItemsView()
