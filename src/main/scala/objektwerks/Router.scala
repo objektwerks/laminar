@@ -11,7 +11,7 @@ import org.scalajs.dom
 import Serializer.given
 
 object Router:
-  private val loginPageRoute = Route.static(LoginPage, root / "login" / endOfSegments)
+  private val loginPageRoute = Route.static(LoginPage, root / endOfSegments)
   private val itemsPageRoute = Route.static(ItemsPage, root / "items" / endOfSegments)
 
   private val router = new com.raquo.waypoint.Router[Page](

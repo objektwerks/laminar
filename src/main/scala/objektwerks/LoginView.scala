@@ -13,6 +13,7 @@ object LoginView:
       ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
         onClick --> { _ =>
+          println(s"LoginView click...")
           Router.splitter.pageSignal.map(_ => ItemsPage)
         }
       }
