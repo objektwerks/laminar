@@ -11,8 +11,9 @@ import org.scalajs.dom
 import Serializer.given
 
 object Router:
-  private val loginPageRoute = Route.static(LoginPage, root / "login" / endOfSegments)
-  private val itemsPageRoute = Route.static(ItemsPage, root / "items" / endOfSegments)
+  private val basePath = "target/scala-3.1.0/classes/"
+  private val loginPageRoute = Route.static(LoginPage, root / "login" / endOfSegments, basePath)
+  private val itemsPageRoute = Route.static(ItemsPage, root / "items" / endOfSegments, basePath)
 
   private val router = new com.raquo.waypoint.Router[Page](
     routes = List(loginPageRoute, itemsPageRoute),
