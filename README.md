@@ -8,6 +8,13 @@ Install
 1. brew install node
 2. npm install jsdom
 
+Live Server
+-----------
+>I added the following properties to settings.json:
+1. "liveServer.settings.port": 8080,
+2. "liveServer.settings.root": "./target/scala-3.1.0/classes/"
+>which produces this url: http://127.0.0.1:8080/
+
 Test
 ----
 1. sbt clean test
