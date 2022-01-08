@@ -11,7 +11,7 @@ import org.scalajs.dom
 import Serializer.given
 
 object Router:
-  private val basePath = "/target/scala-3.1.0/classes/"
+  private val basePath = Route.fragmentBasePath
   private val loginPageRoute = Route.static(LoginPage, root / "login" / endOfSegments, basePath)
   private val itemsPageRoute = Route.static(ItemsPage, root / "items" / endOfSegments, basePath)
 
