@@ -17,4 +17,5 @@ object App:
       container = document.getElementById("content"),
       rootNode = app
     )
+    Router.splitter.pageSignal.map(_ => LoginPage)
     ()
