@@ -14,7 +14,7 @@ object Router:
   private val loginPageRoute = Route.static(LoginPage, root / endOfSegments)
   private val itemsPageRoute = Route.static(ItemsPage, root / "items" / endOfSegments, Route.fragmentBasePath)
 
-  private val router = new com.raquo.waypoint.Router[Page](
+  val router = new com.raquo.waypoint.Router[Page](
     routes = List(loginPageRoute, itemsPageRoute),
     serializePage = page => write(page)(pageRW),
     deserializePage = pageAsString => read(pageAsString)(pageRW),
