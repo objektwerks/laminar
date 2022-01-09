@@ -10,7 +10,8 @@ object LoginView:
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("email"),
-        required(true)
+        required(true),
+        onInput.mapToValue.filter(_.nonEmpty) --> Store.email
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
@@ -18,8 +19,11 @@ object LoginView:
         typ("number"),
         pattern("\\d*"),
         stepAttr("1"),
-        required(true)
-      )
+        minLength(6),
+        maxLength(6),
+        required(true),
+        onInput.mapToValue.filter(_.nonEmpty) --> Store.pin
+      ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
         onClick --> { _ =>
           Router.router.pushState(ItemsPage)
