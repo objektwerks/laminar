@@ -2,6 +2,8 @@ package objektwerks
 
 import com.raquo.laminar.api.L.*
 
+import org.scalajs.dom.console.log
+
 object LoginView:
   def apply(): HtmlElement =
     div(
@@ -28,6 +30,7 @@ object LoginView:
       ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
         onClick --> { _ =>
+          log(s"email address: ${Store.emailAddress.now()} pin: ${Store.pin.now()}")
           Router.router.pushState(ItemsPage)
         }
       }
