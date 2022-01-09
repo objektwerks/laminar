@@ -13,7 +13,7 @@ Live Server
 >I added the following properties to settings.json:
 1. "liveServer.settings.port": 8080,
 2. "liveServer.settings.root": "./target/scala-3.1.0/classes/"
-3. liveServer.settings.file: "index.html"
+3. "liveServer.settings.file": "index.html"
 >which produces this url: http://127.0.0.1:8080/
 
 Test
