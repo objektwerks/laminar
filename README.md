@@ -33,5 +33,6 @@ Model
 * Serializer: Item, Page
 * LoginView
 * ItemsView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Item
+* Store
 * Router 1 ---> * Route 1 ---> 1 LoginPage, ItemsPage
 * App
