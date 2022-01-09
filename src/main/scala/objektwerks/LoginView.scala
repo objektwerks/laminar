@@ -9,7 +9,7 @@ object LoginView:
       label(cls("w3-left-align w3-text-indigo"), "Email Address"),
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
-        typ("text"),
+        typ("email"),
         required(true)
       ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
