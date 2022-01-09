@@ -11,7 +11,7 @@ object LoginView:
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("email"),
         required(true),
-        onInput.mapToValue.filter(_.nonEmpty) --> Store.email
+        onInput.mapToValue.filter(_.nonEmpty) --> Store.emailAddress
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
