@@ -11,6 +11,7 @@ object LoginView:
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("email"),
         required(true),
+        value <--- Store.emailAddress,
         onInput.mapToValue.filter(_.nonEmpty) --> Store.emailAddress
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
@@ -22,6 +23,7 @@ object LoginView:
         minLength(6),
         maxLength(6),
         required(true),
+        value <--- Store.pin,
         onInput.mapToValue.filter(_.nonEmpty) --> Store.pin
       ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
