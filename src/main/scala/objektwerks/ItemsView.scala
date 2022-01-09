@@ -18,8 +18,8 @@ object Item:
     id = id + 1
     id.toString
 
-object ItemsView:  
-  def apply(items: List[Item] = List.empty[Item]): HtmlElement = Renderer( Model( Var(items) ) ).render
+object ItemsView:
+  def apply(): HtmlElement = Renderer( Model( Store.items ) ).render
 
   private final class Model(val itemsVar: Var[List[Item]]):
     given owner: Owner = new Owner {}
