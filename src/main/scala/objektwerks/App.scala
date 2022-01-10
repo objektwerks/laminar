@@ -11,8 +11,9 @@ import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 object App:
   @JSExport
   def init(): Unit =
-    val container = document.getElementById("container")
-    val baseNode = div( child <-- Router.splitter.$view )
-    val rootNode = render(container, baseNode)
-    log(s"App.init() -> root node: $rootNode")
+    render(
+      container = document.getElementById("container"),
+      rootNode = div( child <-- Router.splitter.$view )
+    )
+    log("App.init()")
     ()
