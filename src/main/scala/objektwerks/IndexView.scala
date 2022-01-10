@@ -15,9 +15,9 @@ object IndexView:
             }
           }
         ),
-        div(
+        div(cls("w3-container"),
           h4(cls("w3-light-grey w3-text-indigo"), "Features"),
-          ul(
+          ul(cls("w3-ul w3-hoverable"),
             li(cls("w3-text-indigo w3-display-container"), "Add Task"),
             li(cls("w3-text-indigo w3-display-container"), "Edit Task"),
             li(cls("w3-text-indigo w3-display-container"), "List Tasks")
