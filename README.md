@@ -29,10 +29,11 @@ Run
 
 Model
 -----
-* Page: LoginPage, ItemsPage
-* Serializer: Item, Page
+* Page: IndexPage, LoginPage, ItemsPage
+* Serializer: Task, Page
+* IndexView
 * LoginView
-* ItemsView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Item
+* TasksView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Task
 * Store
-* Router 1 ---> * Route 1 ---> 1 LoginPage, ItemsPage
+* Router 1 ---> * Route 1 ---> 1 Page
 * App
