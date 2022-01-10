@@ -19,7 +19,7 @@ object Task:
     id.toString
 
 object TasksView:
-  def apply(): HtmlElement = Renderer( Model( Store.items ) ).render
+  def apply(): HtmlElement = Renderer( Model( Store.tasks ) ).render
 
   private final class Model(val itemsVar: Var[List[Task]]):
     given owner: Owner = new Owner {}
