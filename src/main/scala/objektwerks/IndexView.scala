@@ -16,11 +16,11 @@ object IndexView:
           }
         ),
         div(
-          h5(cls("w3-light-grey w3-text-indigo"), "Features"),
+          h5(cls("w3-text-indigo"), "Features:"),
           ul(cls("w3-ul"),
-            li(cls("w3-text-indigo w3-display-container"), "Add Task"),
-            li(cls("w3-text-indigo w3-display-container"), "Edit Task"),
-            li(cls("w3-text-indigo w3-display-container"), "List Tasks")
+            li(cls("w3-text-indigo"), "Add Task"),
+            li(cls("w3-text-indigo"), "Edit Task"),
+            li(cls("w3-text-indigo"), "List Tasks")
          )
         )
       )
