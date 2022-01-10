@@ -21,25 +21,25 @@ object Task:
 object TasksView:
   def apply(): HtmlElement = Renderer( Model( Store.tasks ) ).render
 
-  private final class Model(val itemsVar: Var[List[Task]]):
+  private final class Model(val tasksVar: Var[List[Task]]):
     given owner: Owner = new Owner {}
-    itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
+    tasksVar.signal.foreach(items => log(s"tasks change event -> ${items.toString}"))
 
-    val selectedItemVar: Var[Option[Task]] = Var(None)
+    val selectedTaskVar: Var[Option[Task]] = Var(None)
 
-    def selectedItem: Task = selectedItemVar.now().getOrElse(Task.empty)
+    def selectedTask: Task = selectedTaskVar.now().getOrElse(Task.empty)
 
-    def onSelectItem(id: String): Unit =
-      val item = itemsVar.now().find(_.id == id)
-      selectedItemVar.set(item)
+    def onSelectTask(id: String): Unit =
+      val task = tasksVar.now().find(_.id == id)
+      selectedTaskVar.set(task)
 
-    def onAddItem(value: String): Unit = itemsVar.update(_ :+ Task(value = value))
+    def onAddTask(value: String): Unit = tasksVar.update(_ :+ Task(value = value))
 
-    def onEditItem(id: String, value: String): Unit =
-      itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
-      selectedItemVar.set(None)
+    def onEditTask(id: String, value: String): Unit =
+      tasksVar.update(_.map(task => if (task.id == id) task.copy(value = value) else task))
+      selectedTaskVar.set(None)
 
-    def onRemoveItem(id: String): Unit = itemsVar.update(_.filterNot(_.id == id))
+    def onRemoveTask(id: String): Unit = tasksVar.update(_.filterNot(_.id == id))
 
   private final class Renderer(model: Model):
     val onEnterPress = onKeyPress.filter(_.keyCode == KeyCode.Enter)
@@ -47,40 +47,40 @@ object TasksView:
     def render: HtmlElement =
       renderRoot(
         model
-          .itemsVar
+          .tasksVar
           .signal
-          .split(_.id)( (_, item, itemSignal) => renderItem(item, itemSignal) )
+          .split(_.id)( (_, task, itemSignal) => renderTask(task, itemSignal) )
       )
 
-    def renderRoot(itemsSignal: Signal[List[Li]]): HtmlElement =
+    def renderRoot(tasksSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
         div(
-          h4(cls("w3-light-grey w3-text-indigo"), "Item"),
-          renderAddItem,
-          renderEditItem
+          h4(cls("w3-light-grey w3-text-indigo"), "Task"),
+          renderAddTask,
+          renderEditTask
         ),
         div(
-          h4(cls("w3-light-grey w3-text-indigo"), "Items"),
-          renderItems(itemsSignal)
+          h4(cls("w3-light-grey w3-text-indigo"), "Tasks"),
+          renderTasks(tasksSignal)
         )
       )
 
-    def renderItems(itemsSignal: Signal[List[Li]]): Div =
+    def renderTasks(tasksSignal: Signal[List[Li]]): Div =
       div(cls("w3-container"),
-        ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
+        ul(cls("w3-ul w3-hoverable"), children <-- tasksSignal)
       )
 
-    def renderItem(item: Task, itemSignal: Signal[Task]): Li =
+    def renderTask(task: Task, tasksSignal: Signal[Task]): Li =
       li(cls("w3-text-indigo w3-display-container"),
-        child.text <-- itemSignal.map(item.id + ". " + _.value),
+        child.text <-- tasksSignal.map(task.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
-          onClick.mapTo(item.id) --> { id => model.onRemoveItem(id) },
+          onClick.mapTo(task.id) --> { id => model.onRemoveTask(id) },
           unsafeInnerHtml := "&times;"
         ),
-        onClick.mapTo(item.id) --> { id => model.onSelectItem(id) }
+        onClick.mapTo(task.id) --> { id => model.onSelectTask(id) }
       )
 
-    def renderAddItem: Div =
+    def renderAddTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
@@ -88,7 +88,7 @@ object TasksView:
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"),
               inContext { input =>
                 onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
-                  model.onAddItem(value)
+                  model.onAddTask(value)
                   input.ref.value = ""
                 }
               }
@@ -97,16 +97,16 @@ object TasksView:
         )
       )
 
-    def renderEditItem: Div =
+    def renderEditTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              value <-- model.selectedItemVar.signal.map(_.getOrElse(Task.empty).value),
-              readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
+              value <-- model.selectedTaskVar.signal.map(_.getOrElse(Task.empty).value),
+              readOnly <-- model.selectedTaskVar.signal.map(_.isEmpty),
               onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
-                model.onEditItem(model.selectedItem.id, value)
+                model.onEditTask(model.selectedTask.id, value)
               }
             )
           )
