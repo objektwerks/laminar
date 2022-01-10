@@ -18,7 +18,7 @@ object Item:
     id = id + 1
     id.toString
 
-object ItemsView:
+object TasksView:
   def apply(): HtmlElement = Renderer( Model( Store.items ) ).render
 
   private final class Model(val itemsVar: Var[List[Item]]):
