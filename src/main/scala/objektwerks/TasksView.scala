@@ -55,12 +55,12 @@ object TasksView:
     def renderRoot(tasksSignal: Signal[List[Li]]): HtmlElement =
       div(cls("w3-container"),
         div(
-          h4(cls("w3-light-grey w3-text-indigo"), "Task"),
+          h5(cls("w3-light-grey w3-text-indigo"), "Task"),
           renderAddTask,
           renderEditTask
         ),
         div(
-          h4(cls("w3-light-grey w3-text-indigo"), "Tasks"),
+          h5(cls("w3-light-grey w3-text-indigo"), "Tasks"),
           renderTasks(tasksSignal)
         )
       )
