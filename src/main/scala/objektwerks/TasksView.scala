@@ -23,7 +23,7 @@ object TasksView:
 
   private final class Model(val tasksVar: Var[List[Task]]):
     given owner: Owner = new Owner {}
-    tasksVar.signal.foreach(items => log(s"tasks change event -> ${items.toString}"))
+    tasksVar.signal.foreach(tasks => log(s"tasks change event -> ${tasks.toString}"))
 
     val selectedTaskVar: Var[Option[Task]] = Var(None)
 
@@ -49,7 +49,7 @@ object TasksView:
         model
           .tasksVar
           .signal
-          .split(_.id)( (_, task, itemSignal) => renderTask(task, itemSignal) )
+          .split(_.id)( (_, task, taskSignal) => renderTask(task, taskSignal) )
       )
 
     def renderRoot(tasksSignal: Signal[List[Li]]): HtmlElement =
@@ -70,9 +70,9 @@ object TasksView:
         ul(cls("w3-ul w3-hoverable"), children <-- tasksSignal)
       )
 
-    def renderTask(task: Task, tasksSignal: Signal[Task]): Li =
+    def renderTask(task: Task, taskSignal: Signal[Task]): Li =
       li(cls("w3-text-indigo w3-display-container"),
-        child.text <-- tasksSignal.map(task.id + ". " + _.value),
+        child.text <-- taskSignal.map(task.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
           onClick.mapTo(task.id) --> { id => model.onRemoveTask(id) },
           unsafeInnerHtml := "&times;"
