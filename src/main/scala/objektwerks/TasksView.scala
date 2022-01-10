@@ -8,11 +8,11 @@ import org.scalajs.dom.KeyCode
 
 import InnerHtmlModifier.*
 
-final case class Item(id: String = Item.nextId, value: String)
+final case class Task(id: String = Task.nextId, value: String)
 
-object Item:
+object Task:
   private var id = 0
-  val empty = Item("", "")
+  val empty = Task("", "")
 
   private def nextId: String =
     id = id + 1
@@ -21,19 +21,19 @@ object Item:
 object TasksView:
   def apply(): HtmlElement = Renderer( Model( Store.items ) ).render
 
-  private final class Model(val itemsVar: Var[List[Item]]):
+  private final class Model(val itemsVar: Var[List[Task]]):
     given owner: Owner = new Owner {}
     itemsVar.signal.foreach(items => log(s"items change event -> ${items.toString}"))
 
-    val selectedItemVar: Var[Option[Item]] = Var(None)
+    val selectedItemVar: Var[Option[Task]] = Var(None)
 
-    def selectedItem: Item = selectedItemVar.now().getOrElse(Item.empty)
+    def selectedItem: Task = selectedItemVar.now().getOrElse(Task.empty)
 
     def onSelectItem(id: String): Unit =
       val item = itemsVar.now().find(_.id == id)
       selectedItemVar.set(item)
 
-    def onAddItem(value: String): Unit = itemsVar.update(_ :+ Item(value = value))
+    def onAddItem(value: String): Unit = itemsVar.update(_ :+ Task(value = value))
 
     def onEditItem(id: String, value: String): Unit =
       itemsVar.update(_.map(item => if (item.id == id) item.copy(value = value) else item))
@@ -70,7 +70,7 @@ object TasksView:
         ul(cls("w3-ul w3-hoverable"), children <-- itemsSignal)
       )
 
-    def renderItem(item: Item, itemSignal: Signal[Item]): Li =
+    def renderItem(item: Task, itemSignal: Signal[Task]): Li =
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- itemSignal.map(item.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),
@@ -103,7 +103,7 @@ object TasksView:
           div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
           div(cls("w3-col"), width("85%"),
             input(cls("w3-input w3-hover-light-gray w3-text-indigo"), typ("text"), readOnly(true),
-              value <-- model.selectedItemVar.signal.map(_.getOrElse(Item.empty).value),
+              value <-- model.selectedItemVar.signal.map(_.getOrElse(Task.empty).value),
               readOnly <-- model.selectedItemVar.signal.map(_.isEmpty),
               onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
                 model.onEditItem(model.selectedItem.id, value)
