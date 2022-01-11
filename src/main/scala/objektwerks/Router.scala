@@ -13,10 +13,10 @@ import Serializer.given
 object Router:
   private val indexPageRoute = Route.static(IndexPage, root / endOfSegments)
   private val loginPageRoute = Route.static(LoginPage, root / "login" / endOfSegments)
-  private val itemsPageRoute = Route.static(TasksPage, root / "tasks" / endOfSegments)
+  private val tasksPageRoute = Route.static(TasksPage, root / "tasks" / endOfSegments)
 
   val router = new com.raquo.waypoint.Router[Page](
-    routes = List(indexPageRoute, loginPageRoute, itemsPageRoute),
+    routes = List(indexPageRoute, loginPageRoute, tasksPageRoute),
     serializePage = page => write(page)(pageRW),
     deserializePage = pageAsString => read(pageAsString)(pageRW),
     getPageTitle = _.title,
