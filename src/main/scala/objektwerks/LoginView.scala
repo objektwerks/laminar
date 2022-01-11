@@ -14,7 +14,7 @@ object LoginView:
         typ("email"),
         required(true),
         value <-- emailAddress,
-        onInput.mapToValue.filter(_.nonEmpty) --> Store.emailAddress
+        onInput.mapToValue.filter(_.nonEmpty) --> emailAddress
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
@@ -26,11 +26,11 @@ object LoginView:
         maxLength(6),
         required(true),
         value <-- pin,
-        onInput.mapToValue.filter(_.nonEmpty) --> Store.pin
+        onInput.mapToValue.filter(_.nonEmpty) --> pin
       ),
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
         onClick --> { _ =>
-          log(s"email address: ${Store.emailAddress.now()} pin: ${Store.pin.now()}")
+          log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
           Router.router.pushState(TasksPage)
         }
       }
