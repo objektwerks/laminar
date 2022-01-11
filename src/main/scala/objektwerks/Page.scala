@@ -6,4 +6,4 @@ sealed trait Page:
   val title = "Tasks"
 case object IndexPage extends Page
 case object LoginPage extends Page
-case object ItemsPage extends Page
+case object TasksPage extends Page

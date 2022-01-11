@@ -31,7 +31,7 @@ object LoginView:
       button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
         onClick --> { _ =>
           log(s"email address: ${Store.emailAddress.now()} pin: ${Store.pin.now()}")
-          Router.router.pushState(ItemsPage)
+          Router.router.pushState(TasksPage)
         }
       }
     )
