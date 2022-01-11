@@ -7,14 +7,15 @@ Install
 >jsdom **must** be installed locally - **not** globally!
 1. brew install node
 2. npm install jsdom
+3. instal Live Server extension via VSCode
 
 Live Server
 -----------
->I added the following properties to settings.json:
+>Add the following Live Server settings to VSCode settings.json:
 1. "liveServer.settings.port": 8080,
 2. "liveServer.settings.root": "./target/scala-3.1.0/classes/"
 3. "liveServer.settings.file": "index.html"
->which produces this url: http://127.0.0.1:8080/
+>which produces this root url: http://127.0.0.1:8080/
 >See: https://github.com/ritwickdey/vscode-live-server/blob/master/docs/settings.md
 
 Test
