@@ -19,7 +19,7 @@ object Router:
     routes = List(indexPageRoute, loginPageRoute, itemsPageRoute),
     serializePage = page => write(page)(pageRW),
     deserializePage = pageAsString => read(pageAsString)(pageRW),
-    getPageTitle = _.toString,
+    getPageTitle = _.title,
   )(
     $popStateEvent = L.windowEvents.onPopState,
     owner = L.unsafeWindowOwner
