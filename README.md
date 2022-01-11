@@ -38,3 +38,9 @@ Model
 * Store
 * Router 1 ---> * Route 1 ---> 1 Page
 * App
+
+Resources
+---------
+1. Laminar - https://laminar.dev/
+2. Waypoint - https://github.com/raquo/Waypoint
+3. uPickle - https://github.com/com-lihaoyi/upickle
