@@ -12,6 +12,7 @@ lazy val laminar = (project in file("."))
         "com.raquo" %%% "waypoint" % "0.5.0",
         "com.lihaoyi" %%% "upickle" % "1.4.3",
         "com.lihaoyi" %%% "ujson" % "1.4.3",
+        "com.lihaoyi" %% "cask" % "0.8.0",
         "com.lihaoyi" %%% "utest" % "0.7.10" % Test
       )
     },
