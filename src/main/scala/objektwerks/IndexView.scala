@@ -16,8 +16,8 @@ object IndexView:
           }
         ),
         div(
-          h5(cls("w3-text-indigo"), "Features:"),
           ul(cls("w3-ul"),
+            li(h5(cls("w3-text-indigo"), "Features:")),
             li(cls("w3-text-indigo"), "Add Task"),
             li(cls("w3-text-indigo"), "Edit Task"),
             li(cls("w3-text-indigo"), "List Tasks")
