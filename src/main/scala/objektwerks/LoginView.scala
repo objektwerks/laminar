@@ -28,10 +28,14 @@ object LoginView:
         value <-- pin,
         onInput.mapToValue.filter(_.nonEmpty) --> pin
       ),
-      button(cls("w3-bar-item w3-button w3-round-large w3-text-indigo"), "Submit").amend {
-        onClick --> { _ =>
-          log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
-          Router.router.pushState(TasksPage)
-        }
-      }
+      div(cls("w3-center"),
+        div(cls("w3-bar w3-margin-top"),
+          button(cls("w3-button w3-light-gray w3-text-indigo"), "Submit").amend {
+            onClick --> { _ =>
+              log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
+              Router.router.pushState(TasksPage)
+            }
+          }
+        )
+      )
     )
