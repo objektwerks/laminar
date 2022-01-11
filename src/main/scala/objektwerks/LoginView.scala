@@ -28,7 +28,7 @@ object LoginView:
         value <-- pin,
         onInput.mapToValue.filter(_.nonEmpty) --> pin
       ),
-      button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
+      button(cls("w3-bar-item w3-button w3-text-indigo"), "Submit").amend {
         onClick --> { _ =>
           log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
           Router.router.pushState(TasksPage)
