@@ -7,8 +7,8 @@ import org.scalajs.dom.console.log
 object IndexView:
     def apply(): HtmlElement =
       div(
-        div(cls("w3-bar w3-light-grey w3-text-indigo"),
-          button(cls("w3-bar-item w3-button w3-text-indigo"), "Login").amend {
+        div(cls("w3-bar w3-text-indigo"),
+          button(cls("w3-button  w3-round-xxlarge w3-light-grey w3-text-indigo"), "Login").amend {
             onClick --> { _ =>
               log("Login onClick")
               Router.router.pushState(LoginPage)
