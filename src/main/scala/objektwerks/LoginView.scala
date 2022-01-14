@@ -14,6 +14,7 @@ object LoginView:
         typ("email"),
         minLength(3),
         required(true),
+        placeholder("youraddress@email.com"),
         value <-- emailAddress,
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress
       ),
@@ -24,6 +25,7 @@ object LoginView:
         minLength(6),
         maxLength(6),
         required(true),
+        placeholder("a1b2c3"),
         value <-- pin,
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin
       ),
