@@ -36,8 +36,11 @@ object LoginView:
           onClick --> { _ =>
             log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
             if emailAddress.now().isEmailAddress() && pin.now().isPin() then
+              log("Email address and/or pin is valid!")
               Router.router.pushState(TasksPage)
-            else Router.router.$currentPage
+            else
+              log("Email address and/or pin is invalid!")
+              Router.router.$currentPage
           }
         }
       )
