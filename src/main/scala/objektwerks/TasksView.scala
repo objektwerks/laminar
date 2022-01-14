@@ -82,40 +82,32 @@ object TasksView:
 
     def renderAddTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
-        div(cls("w3-row"),
-          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add")),
-          div(cls("w3-col"), width("85%"),
-            input(
-              cls("w3-input w3-hover-light-gray w3-text-indigo"),
-              typ("text"),
-              placeholder("Enter task, press enter."),
-              inContext { input =>
-                onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
-                  model.onAddTask(value)
-                  input.ref.value = ""
-                }
-              }
-            )
-          )
+        label(cls("w3-left-align w3-text-indigo"), "Add"),
+        input(
+          cls("w3-input w3-hover-light-gray w3-text-indigo"),
+          typ("text"),
+          placeholder("Enter task, press enter."),
+          inContext { input =>
+            onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
+              model.onAddTask(value)
+              input.ref.value = ""
+            }
+          }
         )
       )
 
     def renderEditTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
-        div(cls("w3-row"),
-          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit")),
-          div(cls("w3-col"), width("85%"),
-            input(
-              cls("w3-input w3-hover-light-gray w3-text-indigo"),
-              typ("text"),
-              readOnly(true),
-              placeholder("Select and edit task, press enter."),
-              value <-- model.selectedTaskVar.signal.map(_.getOrElse(Task.empty).value),
-              readOnly <-- model.selectedTaskVar.signal.map(_.isEmpty),
-              onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
-                model.onEditTask(model.selectedTask.id, value)
-              }
-            )
-          )
+        label(cls("w3-left-align w3-text-indigo"), "Edit"),
+        input(
+          cls("w3-input w3-hover-light-gray w3-text-indigo"),
+          typ("text"),
+          readOnly(true),
+          placeholder("Select and edit task, press enter."),
+          value <-- model.selectedTaskVar.signal.map(_.getOrElse(Task.empty).value),
+          readOnly <-- model.selectedTaskVar.signal.map(_.isEmpty),
+          onEnterPress.mapToValue.filter(_.nonEmpty) --> { value =>
+            model.onEditTask(model.selectedTask.id, value)
+          }
         )
       )
