@@ -23,7 +23,7 @@ object LoginView:
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress,
         onKeyUp.mapToValue --> { value =>
           if value.isEmailAddress() then emailAddressError.emit("")
-          else emailAddressError.emit("Please, enter a valid email address.")
+          else emailAddressError.emit("Enter a valid email address.")
         }
       ),
       div(cls("w3-border-white w3-text-red"), child.text <-- emailAddressError.events),
@@ -39,7 +39,7 @@ object LoginView:
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin,
         onKeyUp.mapToValue --> { value =>
           if value.isPin() then pinError.emit("")
-          else pinError.emit("Please, enter a valid 6 character pin.")
+          else pinError.emit("Enter a valid 6-character pin.")
         }      
       ),
       div(cls("w3-border-white w3-text-red"), child.text <-- pinError.events),
