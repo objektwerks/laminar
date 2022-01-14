@@ -26,7 +26,7 @@ object LoginView:
           else emailAddressError.emit("Please, enter a valid email address.")
         }
       ),
-      div(cls("w3-border-white w3-margin w3-red"), child.text <-- emailAddressError.events),
+      div(cls("w3-border-white w3-text-red"), child.text <-- emailAddressError.events),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
@@ -34,21 +34,21 @@ object LoginView:
         minLength(6),
         maxLength(6),
         required(true),
-        placeholder("a1b2c3"),
+        placeholder("abc123"),
         value <-- pin,
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin,
         onKeyUp.mapToValue --> { value =>
           if value.isPin() then pinError.emit("")
-          else pinError.emit("Please, enter a valid pin.")
+          else pinError.emit("Please, enter a valid 6 character pin.")
         }      
       ),
-      div(cls("w3-border-white w3-margin w3-red"), child.text <-- pinError.events),
+      div(cls("w3-border-white w3-text-red"), child.text <-- pinError.events),
       div(cls("w3-bar w3-margin-top w3-center"),
         button(cls("w3-button w3-round-xxlarge w3-light-gray w3-text-indigo"), "Login").amend {
           onClick --> { _ =>
             log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
             if emailAddress.now().isEmailAddress() && pin.now().isPin() then
-              log("Email address and/or pin is valid!")
+              log("Email address and pin is valid!")
               Router.router.pushState(TasksPage)
             else
               log("Email address and/or pin is invalid!")
