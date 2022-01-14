@@ -18,7 +18,7 @@ object LoginView:
         typ("email"),
         minLength(3),
         required(true),
-        placeholder("youraddress@email.com"),
+        placeholder("address@email.com"),
         value <-- emailAddress,
         onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress,
         onKeyUp.mapToValue --> { value =>
