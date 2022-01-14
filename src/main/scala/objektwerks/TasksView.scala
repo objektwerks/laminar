@@ -83,7 +83,7 @@ object TasksView:
     def renderAddTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
-          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add:")),
+          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Add")),
           div(cls("w3-col"), width("85%"),
             input(
               cls("w3-input w3-hover-light-gray w3-text-indigo"),
@@ -103,7 +103,7 @@ object TasksView:
     def renderEditTask: Div =
       div(cls("w3-container"), paddingTop("3px"), paddingBottom("3px"),
         div(cls("w3-row"),
-          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit:")),
+          div(cls("w3-col"), width("15%"), label(cls("w3-left-align w3-text-indigo"), "Edit")),
           div(cls("w3-col"), width("85%"),
             input(
               cls("w3-input w3-hover-light-gray w3-text-indigo"),
