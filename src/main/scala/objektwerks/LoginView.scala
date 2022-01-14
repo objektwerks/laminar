@@ -14,10 +14,8 @@ object LoginView:
         typ("email"),
         minLength(3),
         required(true),
-        controlled(
-          value <-- emailAddress,
-          onInput.mapToValue.filter(_.nonEmpty) --> emailAddress
-        )
+        value <-- emailAddress,
+        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
@@ -26,10 +24,8 @@ object LoginView:
         minLength(6),
         maxLength(6),
         required(true),
-        controlled(
-          value <-- pin,
-          onInput.mapToValue.filter(_.nonEmpty) --> pin
-        )
+        value <-- pin,
+        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin
       ),
       div(cls("w3-bar w3-margin-top w3-center"),
         button(cls("w3-button w3-round-xxlarge w3-light-gray w3-text-indigo"), "Login").amend {
