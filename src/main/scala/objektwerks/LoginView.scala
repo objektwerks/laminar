@@ -12,6 +12,7 @@ object LoginView:
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("email"),
+        minLength(3),
         required(true),
         value <-- emailAddress,
         inContext { input =>
