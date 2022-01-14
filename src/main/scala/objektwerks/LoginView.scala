@@ -22,8 +22,6 @@ object LoginView:
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
         typ("text"),
-        pattern("\\d*"),
-        stepAttr("1"),
         minLength(6),
         maxLength(6),
         required(true),
