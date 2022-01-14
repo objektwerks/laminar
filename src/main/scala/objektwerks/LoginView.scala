@@ -14,7 +14,9 @@ object LoginView:
         typ("email"),
         required(true),
         value <-- emailAddress,
-        onInput.mapToValue.filter(_.nonEmpty) --> emailAddress
+        inContext { input =>
+          onInput.mapToValue.filter(_.nonEmpty) --> emailAddress
+        }
       ),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
@@ -26,7 +28,9 @@ object LoginView:
         maxLength(6),
         required(true),
         value <-- pin,
-        onInput.mapToValue.filter(_.nonEmpty) --> pin
+        inContext { input =>
+          onInput.mapToValue.filter(_.nonEmpty) --> pin
+        }
       ),
       div(cls("w3-bar w3-margin-top w3-center"),
         button(cls("w3-button w3-round-xxlarge w3-light-gray w3-text-indigo"), "Login").amend {
