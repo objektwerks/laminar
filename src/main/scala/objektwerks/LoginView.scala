@@ -18,8 +18,11 @@ object LoginView:
         required(true),
         placeholder("youraddress@email.com"),
         value <-- emailAddress,
-        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress
+        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> emailAddress,
+        onKeyUp.mapToValue --> { value =>
+        }
       ),
+      label(idAttr("email-address-error"), cls("w3-left-align w3-text-red")),
       label(cls("w3-left-align w3-text-indigo"), "Pin"),
       input(
         cls("w3-input w3-hover-light-gray w3-text-indigo"),
@@ -29,8 +32,10 @@ object LoginView:
         required(true),
         placeholder("a1b2c3"),
         value <-- pin,
-        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin
-      ),
+        onInput.mapToValue.filter(_.nonEmpty).setAsValue --> pin,
+        onKeyUp.mapToValue --> { value =>
+        }      ),
+      label(idAttr("pin-error"), cls("w3-left-align w3-text-red")),
       div(cls("w3-bar w3-margin-top w3-center"),
         button(cls("w3-button w3-round-xxlarge w3-light-gray w3-text-indigo"), "Login").amend {
           onClick --> { _ =>
