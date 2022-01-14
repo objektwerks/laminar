@@ -4,7 +4,7 @@ Laminar
 
 Install
 -------
->jsdom **must** be installed locally - **not** globally!
+>jsdom **must** be installed locally - ***not*** globally!
 1. brew install node
 2. npm install jsdom
 3. instal Live Server extension via VSCode
