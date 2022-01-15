@@ -52,7 +52,7 @@ object LoginView:
         )
       ),
       onSubmit --> { _ =>
-        // Still logs to console: Form submission canceled because the form is not connected.
+        // This code works but still logs to console: Form submission canceled because the form is not connected.
         log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
         Router.router.pushState(TasksPage)
       }  
