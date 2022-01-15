@@ -49,7 +49,7 @@ object LoginView:
           disabled <-- emailAddress.signal.map(_.isEmailAddress())
                        .combineWith(pin.signal.map(_.isPin()))
                        .map( (a, b) => !(a && b) )
-          // Consider: emailAddress.signal.combineWithFn(pin.signal) { (email, pin) => !(email.isEmailAddress() && pin.isPin()) }
+          // disabled <-- emailAddress.signal.combineWithFn(pin.signal) { (email, pin) => !(email.isEmailAddress() && pin.isPin()) }
         ).amend {
           onClick --> { _ =>
             log(s"email address: ${emailAddress.now()} pin: ${pin.now()}")
