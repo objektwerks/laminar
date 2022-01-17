@@ -15,7 +15,7 @@ object Router:
     Route.static(IndexPage, root / endOfSegments),
     Route.static(RegisterPage, root / "register" / endOfSegments),
     Route.static(LoginPage, root / "login" / endOfSegments),
-    Route.static(TasksPage, root / "tasks" / endOfSegments)
+    Route.static(TasksPage, root / "app" / "tasks" / endOfSegments)
   )
 
   val router = new com.raquo.waypoint.Router[Page](
