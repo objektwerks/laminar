@@ -30,8 +30,9 @@ Run
 
 Model
 -----
-* Page: IndexPage, LoginPage, ItemsPage
+* Page: IndexPage, RegisterPage, LoginPage, ItemsPage
 * Serializer: Task, Page
+* RegisterView
 * IndexView
 * LoginView
 * TasksView 1 ---> 1 Renderer 1 ---> 1 Model 1 ---> * Task
