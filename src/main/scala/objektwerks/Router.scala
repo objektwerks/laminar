@@ -13,6 +13,7 @@ import Serializer.given
 object Router:
   val routes = List(
     Route.static(IndexPage, root / endOfSegments),
+    Route.static(RegisterPage, root / "register" / endOfSegments),
     Route.static(LoginPage, root / "login" / endOfSegments),
     Route.static(TasksPage, root / "tasks" / endOfSegments)
   )
