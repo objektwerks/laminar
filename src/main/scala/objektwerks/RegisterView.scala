@@ -7,7 +7,7 @@ import org.scalajs.dom.console.log
 import Validator.*
 
 object RegisterView:
-  def apply(emailAddress: Var[String], pin: Var[String]): HtmlElement =
+  def apply(emailAddress: Var[String]): HtmlElement =
     val emailAddressError = new EventBus[String]
     form(cls("w3-container"),
       h5(cls("w3-light-grey w3-text-indigo"), "Login"),
