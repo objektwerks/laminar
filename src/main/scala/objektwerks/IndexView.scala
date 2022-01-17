@@ -17,6 +17,7 @@ object IndexView:
           button(cls("w3-button w3-round-xxlarge w3-light-grey w3-text-indigo w3-right"), "Register").amend {
             onClick --> { _ =>
               log("Register onClick")
+              Router.router.pushState(RegisterPage)
             }
           }          
         ),
