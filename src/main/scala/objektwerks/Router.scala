@@ -29,5 +29,6 @@ object Router:
 
   val splitter = SplitRender[Page, HtmlElement](router.$currentPage)
     .collectStatic(IndexPage) { IndexView() }
+    .collectStatic(RegisterPage) { RegisterView(Store.emailAddress) }
     .collectStatic(LoginPage) { LoginView(Store.emailAddress, Store.pin) }
     .collectStatic(TasksPage) { TasksView(Store.tasks) }
