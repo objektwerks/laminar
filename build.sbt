@@ -11,7 +11,7 @@ lazy val laminar = (project in file("."))
         "com.raquo" %%% "laminar" % "0.14.2",
         "com.raquo" %%% "waypoint" % "0.5.0",
         "com.lihaoyi" %%% "upickle" % "1.4.4",
-        "com.lihaoyi" %%% "utest" % "0.7.10" % Test
+        "com.lihaoyi" %%% "utest" % "0.7.11" % Test
       )
     },
     Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.1" / "classes" / "js",
