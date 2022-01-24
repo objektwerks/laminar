@@ -25,7 +25,7 @@ Test
 Run
 ---
 1. sbt clean compile fastLinkJS
-2. click **Go Live** to autoload target/scala-3.1.0/classes/index.html into default browser
+2. click **Go Live** to autoload target/scala-3.x.x/classes/index.html into default browser
 2. open **Developer Tools** to view details
 
 Model
