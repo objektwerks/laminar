@@ -5,7 +5,7 @@ lazy val laminar = (project in file("."))
     name := "laminar",
     organization := "objektwerks",
     version := "0.1-SNAPSHOT",
-    scalaVersion := "3.1.0",
+    scalaVersion := "3.1.1",
     libraryDependencies ++= {
       Seq(
         "com.raquo" %%% "laminar" % "0.14.2",
@@ -14,8 +14,8 @@ lazy val laminar = (project in file("."))
         "com.lihaoyi" %%% "utest" % "0.7.10" % Test
       )
     },
-    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.0" / "classes" / "js",
-    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.0" / "classes" / "js",
+    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.1" / "classes" / "js",
+    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.1" / "classes" / "js",
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     testFrameworks += new TestFramework("utest.runner.Framework")    
   )
