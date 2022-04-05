@@ -13,8 +13,8 @@ lazy val laminar = (project in file("."))
         "com.lihaoyi" %%% "utest" % "0.7.11" % Test
       )
     },
-    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.2" / "classes" / "js",
-    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.2" / "classes" / "js",
+    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / public,
+    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / public,
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
-    testFrameworks += new TestFramework("utest.runner.Framework")    
+    testFrameworks += new TestFramework("utest.runner.Framework")
   )
