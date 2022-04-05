@@ -14,17 +14,19 @@ Build
 -----
 1. npm install ( only when package.json changes )
 2. sbt clean compile fastLinkJS
->See **js/target/public** directory.
+>See **target/public** directory.
 
 Test
 ----
-1. sbt clean test
+1. sbt clean test fastLinkJS
 
-Run
+Dev
 ---
-1. sbt clean compile fastLinkJS
-2. click **Go Live** to autoload target/scala-3.x.x/classes/index.html into default browser
-2. open **Developer Tools** to view details
+1. sbt ( new session )
+2. ~ js/fastLinkJS
+3. npx snowpack dev ( new session )
+>Edits are reflected in the **fastLinkJS** and **snowpack** sessions.
+>See **snowpack.config.json** and [Snowpack Config](https://www.snowpack.dev/reference/configuration) for configurable options.
 
 Model
 -----
