@@ -1,3 +1,5 @@
+lazy val public = "public"
+
 lazy val laminar = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
