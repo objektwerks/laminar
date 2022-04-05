@@ -1,4 +1,3 @@
-import bloop.shaded.com.google.common.io.Resources
 lazy val laminar = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
@@ -14,8 +13,8 @@ lazy val laminar = (project in file("."))
         "com.lihaoyi" %%% "utest" % "0.7.11" % Test
       )
     },
-    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.1" / "classes" / "js",
-    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.1" / "classes" / "js",
+    Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.2" / "classes" / "js",
+    Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / "scala-3.1.2" / "classes" / "js",
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     testFrameworks += new TestFramework("utest.runner.Framework")    
   )
