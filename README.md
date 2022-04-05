@@ -45,3 +45,4 @@ Resources
 1. Laminar - https://laminar.dev/
 2. Waypoint - https://github.com/raquo/Waypoint
 3. uPickle - https://github.com/com-lihaoyi/upickle
+4. Snowpack - https://www.snowpack.dev/
