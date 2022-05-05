@@ -11,7 +11,7 @@ lazy val laminar = (project in file("."))
       Seq(
         "com.raquo" %%% "laminar" % "0.14.2",
         "com.raquo" %%% "waypoint" % "0.5.0",
-        "com.lihaoyi" %%% "upickle" % "1.6.0",
+        "com.lihaoyi" %%% "upickle" % "2.0.0",
         "com.lihaoyi" %%% "utest" % "0.7.11" % Test
       )
     },
