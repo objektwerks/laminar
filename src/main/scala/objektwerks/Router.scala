@@ -24,11 +24,11 @@ object Router:
     deserializePage = pageAsString => read(pageAsString)(pageRW),
     getPageTitle = _.title,
   )(
-    $popStateEvent = L.windowEvents.onPopState,
+    popStateEvents = L.windowEvents(_.onPopState),
     owner = L.unsafeWindowOwner
   )
 
-  val splitter = SplitRender[Page, HtmlElement](router.$currentPage)
+  val splitter = SplitRender[Page, HtmlElement](router.currentPageSignal)
     .collectStatic(IndexPage) { IndexView() }
     .collectStatic(RegisterPage) { RegisterView(Store.emailAddress) }
     .collectStatic(LoginPage) { LoginView(Store.emailAddress, Store.pin) }

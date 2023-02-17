@@ -1,7 +1,7 @@
 package objektwerks
 
-import com.raquo.airstream.web.AjaxEventStream
-import com.raquo.airstream.web.AjaxEventStream.AjaxStreamError
+import com.raquo.airstream.web.AjaxStream
+import com.raquo.airstream.web.AjaxStream.AjaxStreamError
 import com.raquo.laminar.api.L.*
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,7 +16,7 @@ object AirstreamAsyncTest extends TestSuite {
 
   val tests = Tests {
     test("ajax") {
-      val stream = AjaxEventStream
+      val stream = AjaxStream
         .get("http://api.icndb.com/jokes/random/")
         .map { response =>
           val joke = parse(response.responseText)

@@ -52,7 +52,7 @@ object TasksView:
           .split(_.id)( (_, task, taskSignal) => renderTask(task, taskSignal) )
       )
 
-    def renderRoot(tasksSignal: Signal[List[Li]]): HtmlElement =
+    def renderRoot(tasksSignal: Signal[List[LI]]): HtmlElement =
       div(cls("w3-container"),
         div(
           h5(cls("w3-light-grey w3-text-indigo"), "Task"),
@@ -65,12 +65,12 @@ object TasksView:
         )
       )
 
-    def renderTasks(tasksSignal: Signal[List[Li]]): Div =
+    def renderTasks(tasksSignal: Signal[List[LI]]): Div =
       div(cls("w3-container"),
         ul(cls("w3-ul w3-hoverable"), children <-- tasksSignal)
       )
 
-    def renderTask(task: Task, taskSignal: Signal[Task]): Li =
+    def renderTask(task: Task, taskSignal: Signal[Task]): LI =
       li(cls("w3-text-indigo w3-display-container"),
         child.text <-- taskSignal.map(task.id + ". " + _.value),
         span(cls("w3-button w3-display-right w3-text-indigo"),

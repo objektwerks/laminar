@@ -13,7 +13,7 @@ object App:
   def init(): Unit =
     render(
       container = document.getElementById("container"),
-      rootNode = div( child <-- Router.splitter.$view )
+      rootNode = div( child <-- Router.splitter.signal )
     )
     log("App.init()")
     ()
