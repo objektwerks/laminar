@@ -10,7 +10,7 @@ lazy val laminar = (project in file("."))
     libraryDependencies ++= {
       Seq(
         "com.raquo" %%% "laminar" % "15.0.0-M7",
-        "com.raquo" %%% "waypoint" % "6.0.0-M4",
+        "com.raquo" %%% "waypoint" % "6.0.0-M5",
         "com.lihaoyi" %%% "upickle" % "2.0.0",
         "com.lihaoyi" %%% "utest" % "0.8.1" % Test
       )
