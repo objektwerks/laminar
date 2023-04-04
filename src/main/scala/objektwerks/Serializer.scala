@@ -1,7 +1,8 @@
 package objektwerks
 
-object Serializer:
-  import upickle.default.*
+import upickle.default.*
 
-  given itemRW: ReadWriter[Task] = macroRW
+object Serializer:
   given pageRW: ReadWriter[Page] = macroRW
+
+  given taskRW: ReadWriter[Task] = macroRW
