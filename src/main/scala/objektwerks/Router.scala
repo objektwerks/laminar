@@ -3,8 +3,8 @@ package objektwerks
 import com.raquo.laminar.api.L
 import com.raquo.laminar.api.L.*
 import com.raquo.waypoint.*
-
-import upickle.default.*
+import com.github.plokhotnyuk.jsoniter_scala.core.*
+import com.github.plokhotnyuk.jsoniter_scala.macros.*
 
 import org.scalajs.dom
 
@@ -20,8 +20,8 @@ object Router:
 
   val router = new com.raquo.waypoint.Router[Page](
     routes = routes,
-    serializePage = page => write(page)(pageRW),
-    deserializePage = pageAsString => read(pageAsString)(pageRW),
+    serializePage = page => writeToString(page),
+    deserializePage = pageAsString => readFromString(pageAsString),
     getPageTitle = _.title,
   )(
     popStateEvents = L.windowEvents(_.onPopState),
