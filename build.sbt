@@ -11,7 +11,8 @@ lazy val laminar = (project in file("."))
       Seq(
         "com.raquo" %%% "laminar" % "15.0.1",
         "com.raquo" %%% "waypoint" % "6.0.0",
-        "com.lihaoyi" %%% "upickle" % "2.0.0", // Change to jsonitor due to 3.0.0 macro bug!
+        "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % jsoniterVersion,
+        "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % jsoniterVersion % "compile-internal",
         "com.lihaoyi" %%% "utest" % "0.8.1" % Test
       )
     },
