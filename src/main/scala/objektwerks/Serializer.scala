@@ -1,8 +1,9 @@
 package objektwerks
 
-import upickle.default.*
+import com.github.plokhotnyuk.jsoniter_scala.core.*
+import com.github.plokhotnyuk.jsoniter_scala.macros.*
 
 object Serializer:
-  given pageRW: ReadWriter[Page] = macroRW
+  given JsonValueCodec[Page] = JsonCodecMaker.make[Page]( CodecMakerConfig.withDiscriminatorFieldName(None) )
 
-  given taskRW: ReadWriter[Task] = macroRW
+  given JsonValueCodec[Task] = JsonCodecMaker.make[Task]( CodecMakerConfig.withDiscriminatorFieldName(None) )
