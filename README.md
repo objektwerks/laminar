@@ -44,5 +44,5 @@ Resources
 1. [Laminar](https://laminar.dev/)
 2. [Waypoint](https://github.com/raquo/Waypoint)
 3. [Jsoniter](https://github.com/plokhotnyuk/jsoniter-scala)
-4. [uJson](https://github.com/com-lihaoyi/ujson)
+4. [uJson](https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html)
 5. [Snowpack](https://www.snowpack.dev/)
