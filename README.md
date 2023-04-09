@@ -1,6 +1,6 @@
 Laminar
 -------
->Laminar, Airstream and Waypoint feature tests using Html5, W3.CSS, ScalaJs, uPickle, Snowpack and Scala 3.
+>Laminar, Airstream and Waypoint feature tests using Html5, W3.CSS, ScalaJs, Jsoniter, uJson, Snowpack and Scala 3.
 
 Install
 -------
