@@ -8,7 +8,7 @@ lazy val laminar = (project in file("."))
     version := "0.1-SNAPSHOT",
     scalaVersion := "3.3.1-RC7",
     libraryDependencies ++= {
-      lazy val jsoniterVersion = "2.23.3"
+      lazy val jsoniterVersion = "2.23.4"
       Seq(
         "com.raquo" %%% "laminar" % "16.0.0",
         "com.raquo" %%% "waypoint" % "7.0.0",
