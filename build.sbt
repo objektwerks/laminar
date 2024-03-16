@@ -11,7 +11,7 @@ lazy val laminar = (project in file("."))
       lazy val jsoniterVersion = "2.28.4"
       Seq(
         "com.raquo" %%% "laminar" % "17.0.0-RC1",
-        "com.raquo" %%% "waypoint" % "8.0.0-M3",
+        "com.raquo" %%% "waypoint" % "8.0.0-RC1",
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % jsoniterVersion,
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % jsoniterVersion % "compile-internal",
         "com.lihaoyi" %%% "ujson" % "3.2.0" % Test,
