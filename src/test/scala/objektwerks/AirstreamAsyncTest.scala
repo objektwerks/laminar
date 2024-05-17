@@ -9,15 +9,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import utest.*
 
 object AirstreamAsyncTest extends TestSuite {
-  def parse(joke: String): String = {
-    val json = ujson.read(joke)
-    json("value").obj("joke").str
-  }
+  def parse(json: String): String = ujson.read(json)("value").str
 
   val tests = Tests {
     test("ajax") {
       val stream = AjaxStream
-        .get("http://api.icndb.com/jokes/random/")
+        .get("https://api.chucknorris.io/jokes/random")
         .map { response =>
           val joke = parse(response.responseText)
           println(s"*** $joke")
