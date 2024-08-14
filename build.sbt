@@ -10,7 +10,7 @@ lazy val laminar = (project in file("."))
     libraryDependencies ++= {
       lazy val jsoniterVersion = "2.30.7"
       Seq(
-        "com.raquo" %%% "laminar" % "17.0.0",
+        "com.raquo" %%% "laminar" % "17.1.0",
         "com.raquo" %%% "waypoint" % "8.0.0",
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % jsoniterVersion,
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % jsoniterVersion % "compile-internal",
