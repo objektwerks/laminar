@@ -19,7 +19,7 @@ lazy val laminar = (project in file("."))
       )
     },
     scalacOptions ++= Seq(
-      "-Wall"
+      "-Wunused:all"
     ),
     Compile / fastLinkJS / scalaJSLinkerOutputDirectory := target.value / public,
     Compile / fullLinkJS / scalaJSLinkerOutputDirectory := target.value / public,
