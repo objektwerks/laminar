@@ -6,7 +6,7 @@ lazy val laminar = (project in file("."))3.7.2-RC1
     name := "laminar",
     organization := "objektwerks",
     version := "0.1-SNAPSHOT",
-    scalaVersion := "3.7.3-RC2",
+    scalaVersion := "3.7.3-RC3",
     libraryDependencies ++= {
       lazy val jsoniterVersion = "2.37.8"
       Seq(
