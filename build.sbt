@@ -15,7 +15,7 @@ lazy val laminar = (project in file("."))3.7.2-RC1
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % jsoniterVersion,
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % jsoniterVersion % "compile-internal",
         "com.lihaoyi" %%% "ujson" % "4.3.2" % Test,
-        "com.lihaoyi" %%% "utest" % "0.9.0" % Test
+        "com.lihaoyi" %%% "utest" % "0.9.1" % Test
       )
     },
     scalacOptions ++= Seq(
