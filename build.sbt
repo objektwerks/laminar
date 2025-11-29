@@ -1,12 +1,12 @@
 lazy val public = "public"
 
-lazy val laminar = (project in file("."))3.7.2-RC1
+lazy val laminar = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "laminar",
     organization := "objektwerks",
     version := "0.1-SNAPSHOT",
-    scalaVersion := "3.8.0-RC1",
+    scalaVersion := "3.8.0-RC2",
     libraryDependencies ++= {
       lazy val jsoniterVersion = "2.38.5"
       Seq(
