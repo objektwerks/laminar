@@ -14,7 +14,7 @@ lazy val laminar = (project in file("."))
         "com.raquo" %%% "waypoint" % "8.0.1", // Don't upgrade due to breaking changes!
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % jsoniterVersion,
         "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % jsoniterVersion % "compile-internal",
-        "com.lihaoyi" %%% "ujson" % "4.4.1" % Test,
+        "com.lihaoyi" %%% "ujson" % "4.4.2-RC" % Test,
         "com.lihaoyi" %%% "utest" % "0.9.2" % Test
       )
     },
